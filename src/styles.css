@@ -72,9 +72,6 @@
   .home-art > span { margin-top: 8px; }
   .home-art > span:last-child { font-size: 10px; letter-spacing: 1px; }
   .home-caption { display: none; }
-  .level-select > div:first-child { margin-bottom: 10px; }
-  .level-select h1 { font-size: 20px; }
-  .level-select button { min-height: 76px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
