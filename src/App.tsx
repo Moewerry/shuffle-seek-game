@@ -6,8 +6,11 @@ import { GameScreen } from './components/game/GameScreen'
 import { levels } from './game/levels'
 import { useProgress } from './hooks/useProgress'
 import { Button } from './components/ui/button'
+import { usePortrait } from './hooks/usePortrait'
+import { OrientationNotice } from './components/OrientationNotice'
 
 export default function App() {
+  const portrait = usePortrait()
   const [screen, setScreen] = useState<'home' | 'levels' | 'game'>('home')
   const [levelId, setLevelId] = useState(1)
   const { unlocked, completed, sound, storageAvailable, complete, toggleSound } = useProgress()
@@ -17,11 +20,11 @@ export default function App() {
     setScreen('game')
   }
   const level = levels[levelId - 1]
-  return <div className="app-shell">
+  return <>{portrait && <OrientationNotice />}<div className="app-shell" inert={portrait} aria-hidden={portrait}>
     <header className="flex items-center justify-between gap-3"><Button variant="ghost" onClick={() => setScreen('home')} className="px-0 font-bold tracking-tight text-foreground" aria-label="返回首页"><Route className="size-5 text-primary" /> shuffle seek<span className="rounded-full bg-secondary px-2 py-1 text-[10px] tracking-wider">PLAY</span></Button><Button variant="ghost" size="sm" onClick={toggleSound} aria-pressed={sound} aria-label={sound ? '关闭音效' : '开启音效'}>{sound ? <Volume2 /> : <VolumeX />}<span>音效{sound ? '开' : '关'}</span></Button></header>
     {screen === 'home' && <Home onStart={() => openLevel(unlocked)} onSelect={() => setScreen('levels')} />}
     {screen === 'levels' && <LevelSelect unlocked={unlocked} completed={completed} onSelect={openLevel} onHome={() => setScreen('home')} />}
     {screen === 'game' && <GameScreen key={level.id} level={level} total={levels.length} sound={sound} onHome={() => setScreen('home')} onComplete={complete} onNext={level.id < levels.length ? () => openLevel(level.id + 1) : undefined} />}
     <footer className="flex justify-between gap-3 text-[10px] tracking-wide text-muted-foreground"><span>SHUFFLE SEEK / 平移闯关</span><span role="status">{storageAvailable ? '进度保存在此浏览器' : '浏览器存储不可用，刷新后进度会丢失'}</span></footer>
-  </div>
+  </div></>
 }

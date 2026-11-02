@@ -3,7 +3,12 @@ import type { Direction, Level, Position } from '../game/types'
 import { movePosition, samePosition } from '../game/rules'
 
 type State = { position: Position; previous: Position | null; steps: number; status: 'playing' | 'paused' | 'won' }
-type Action = { type: 'move'; direction: Direction } | { type: 'reset' | 'undo' | 'pause' | 'resume' }
+type Action =
+  | { type: 'move'; direction: Direction }
+  | { type: 'reset' }
+  | { type: 'undo' }
+  | { type: 'pause' }
+  | { type: 'resume' }
 
 export function useGame(level: Level) {
   const initial: State = { position: level.start, previous: null, steps: 0, status: 'playing' }

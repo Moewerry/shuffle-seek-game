@@ -9,7 +9,7 @@ export function Home({ onStart, onSelect }: { onStart: () => void; onSelect: () 
       <p className="mt-3 text-xl font-medium">方寸之间，自有出路。</p>
       <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">移动小方块，绕开障碍，找到通往终点的路。<br />没有时间限制，按自己的节奏来。</p>
       <div className="mt-6 flex flex-wrap gap-3"><Button size="lg" onClick={onStart}>开始游戏 <ArrowRight /></Button><Button size="lg" variant="outline" onClick={onSelect}><Grid2X2 /> 选择关卡</Button></div>
-      <p className="mt-4 text-xs text-muted-foreground">6 × 6 棋盘 · 10 个小挑战 · 无限次尝试</p>
+      <p className="home-caption mt-4 text-xs text-muted-foreground">6 × 6 棋盘 · 10 个小挑战 · 无限次尝试</p>
     </section>
     <div className="home-art" aria-hidden="true"><Grid2X2 className="size-12 text-primary/40" /><span className="mt-5 block text-7xl">↗</span><span className="mt-4 block text-sm font-semibold tracking-widest">FIND YOUR WAY</span></div>
   </main>
