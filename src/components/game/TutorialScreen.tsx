@@ -42,7 +42,7 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
     </section>
     <aside className="game-sidebar">
       <p className="text-xs font-bold tracking-widest text-violet-600">新手教学 · {step === 0 ? '入门演示' : `练习 ${step} / 4`}</p>
-      <div className="w-full rounded-3xl border border-white bg-gradient-to-br from-purple-50 to-violet-100 p-4 text-[#30284f] shadow-sm sm:p-5">
+      <div className="tutorial-message w-full rounded-3xl border border-white bg-gradient-to-br from-purple-50 to-violet-100 p-4 text-[#30284f] shadow-sm sm:p-5">
         <h1 className="font-serif text-lg font-semibold">{level.title}</h1>
         <p className="mt-2 text-sm leading-relaxed">{tutorialSteps[step].description}</p>
         <p className="mt-3 min-h-10 text-sm font-semibold text-violet-700" role="status" aria-live="polite">{game.paused ? '教学已暂停' : message}</p>

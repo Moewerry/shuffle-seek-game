@@ -33,7 +33,7 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
     </section>
     <aside className="game-sidebar">
       <div className="game-info">
-        <p className="text-xs font-bold tracking-widest text-primary">LEVEL {String(level.id).padStart(2, '0')} / {String(total).padStart(2, '0')}</p>
+        <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
         <h1 className="mt-2 text-2xl font-bold">{level.title}</h1>
       </div>
       <PhaseIndicator phase={game.phase} paused={game.paused} cursor={game.cursor} total={level.swaps} shift={game.lastShift} />
