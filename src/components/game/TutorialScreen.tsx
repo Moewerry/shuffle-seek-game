@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ArrowLeft, ArrowRight, Pause, RotateCcw } from 'lucide-react'
+import { ArrowRight, RotateCcw } from 'lucide-react'
 import { createTutorialRound, tutorialLevel, tutorialSteps } from '../../game/tutorial'
 import { TARGET } from '../../game/shuffle'
 import { useGame } from '../../hooks/useGame'
@@ -8,6 +8,7 @@ import { useSound } from '../../hooks/useSound'
 import { Button } from '../ui/button'
 import { Board } from './Board'
 import { PauseDialog } from './PauseDialog'
+import { GameToolbar } from './GameToolbar'
 
 type Props = { sound: boolean; onHome: () => void; onFinish: () => void }
 
@@ -32,7 +33,9 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
     : lost ? '差一点！看看星星的位置，再观察一次吧。'
     : '现在，点开你认为藏着星星的盒子。'
 
-  return <main className="game-layout">
+  return <div className="game-view">
+    <GameToolbar onSettings={game.pause} disabled={won || lost || game.paused} />
+    <main className="game-layout">
     <section className="board-area" aria-label="新手教学棋盘">
       <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={slot => {
         if (game.paused || !['prompt', 'choosing'].includes(game.phase)) return
@@ -52,11 +55,11 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
       </div>
       <div className="game-actions flex flex-wrap gap-2">
         {won ? <Button disabled={game.paused} onClick={final ? onFinish : onNext}>{final ? '完成教学，返回首页' : step === 0 ? '开始练习' : '下一次练习'}<ArrowRight /></Button>
-          : <Button variant="outline" disabled={game.paused} onClick={game.reset}><RotateCcw />{lost ? '再试一次' : '重新观察'}</Button>}
-        {!won && !lost && <Button variant="ghost" disabled={game.paused} onClick={game.pause}><Pause />暂停</Button>}
+          : lost && <Button variant="outline" onClick={game.reset}><RotateCcw />再试一次</Button>}
       </div>
-      <Button variant="ghost" className="game-home" onClick={onHome}><ArrowLeft />返回首页</Button>
+      {(won || lost) && <Button variant="ghost" onClick={onHome}>返回首页</Button>}
     </aside>
     <PauseDialog open={game.paused} onResume={game.resume} onReset={game.reset} onHome={onHome} />
-  </main>
+    </main>
+  </div>
 }
