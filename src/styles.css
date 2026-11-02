@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--primary);
+}
+
+:root {
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color-scheme: light;
+  --background: #f4f6f0;
+  --foreground: #263733;
+  --card: #ffffff;
+  --primary: #34664d;
+  --primary-foreground: #ffffff;
+  --secondary: #e0e9d8;
+  --muted: #e9ede4;
+  --muted-foreground: #6f7b72;
+  --border: #d9e0d4;
+}
+
+@layer base {
+  * { @apply border-border; box-sizing: border-box; }
+  body { @apply m-0 bg-background text-foreground; min-width: 280px; }
+  button { touch-action: manipulation; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+}
+
+@layer components {
+  .app-shell { @apply mx-auto grid max-w-6xl gap-3; height: 100svh; height: 100dvh; grid-template-rows: auto minmax(0, 1fr) auto; padding: 16px 28px; }
+  .home-layout { @apply grid items-center gap-8; grid-template-columns: 1.25fr 0.75fr; }
+  .home-art { @apply flex aspect-square max-h-80 flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; transform: rotate(-7deg); }
+  .game-layout { @apply grid min-h-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(210px, 0.6fr); }
+  .board-area { @apply flex h-full min-h-0 items-center justify-center; }
+  .board-frame { @apply aspect-square rounded-2xl border border-border bg-card p-3 shadow-sm; width: min(100%, calc(100dvh - 116px)); }
+  .game-sidebar { @apply flex min-h-0 flex-col items-start justify-center gap-4; }
+  .direction-pad { @apply grid gap-2; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 44px); }
+  .direction-pad button { @apply h-full w-full p-0; }
+}
