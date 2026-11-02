@@ -27,7 +27,7 @@ export function useSound(enabled: boolean) {
       if (audio.state === 'suspended') void audio.resume().then(play).catch(() => {})
       else play()
     } catch {
-      // Audio is optional; unavailable browser audio must not interrupt movement.
+      // Audio is optional; unavailable browser audio must not interrupt a round.
     }
   }, [enabled])
 }

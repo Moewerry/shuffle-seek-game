@@ -23,6 +23,6 @@ export default function App() {
     <header className="flex items-center justify-between gap-3"><Button variant="ghost" onClick={() => setScreen('home')} className="px-0 font-bold tracking-tight text-foreground" aria-label="返回首页"><Route className="size-5 text-primary" /> shuffle seek<span className="rounded-full bg-secondary px-2 py-1 text-[10px] tracking-wider">PLAY</span></Button><Button variant="ghost" size="sm" onClick={toggleSound} aria-pressed={sound} aria-label={sound ? '关闭音效' : '开启音效'}>{sound ? <Volume2 /> : <VolumeX />}<span>音效{sound ? '开' : '关'}</span></Button></header>
     {screen === 'home' && <Home onStart={() => openLevel(unlocked)} currentLevel={unlocked} />}
     {screen === 'game' && <GameScreen key={level.id} level={level} total={levels.length} sound={sound} onHome={() => setScreen('home')} onComplete={complete} onNext={level.id < levels.length ? () => openLevel(level.id + 1) : undefined} />}
-    <footer className="flex justify-between gap-3 text-[10px] tracking-wide text-muted-foreground"><span>SHUFFLE SEEK / 平移闯关</span><span role="status">{storageAvailable ? '进度保存在此浏览器' : '浏览器存储不可用，刷新后进度会丢失'}</span></footer>
+    <footer className="flex justify-between gap-3 text-[10px] tracking-wide text-muted-foreground"><span>SHUFFLE SEEK / 盲盒寻星</span><span role="status">{storageAvailable ? '进度保存在此浏览器' : '浏览器存储不可用，刷新后进度会丢失'}</span></footer>
   </div></>
 }

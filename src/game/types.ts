@@ -1,12 +1,21 @@
-export type Position = { x: number; y: number }
-export type Direction = 'up' | 'down' | 'left' | 'right'
 export type Level = {
   id: number
   title: string
   hint: string
   width: number
   height: number
-  start: Position
-  goal: Position
-  obstacles: Position[]
+  swaps: number
+  swapMs: number
+  previewMs: number
+}
+
+export type Phase = 'preview' | 'covering' | 'shuffling' | 'choosing' | 'won' | 'lost'
+export type Swap = readonly [number, number]
+export type Round = {
+  slots: number[]
+  plan: Swap[]
+  cursor: number
+  phase: Phase
+  paused: boolean
+  selected: number | null
 }

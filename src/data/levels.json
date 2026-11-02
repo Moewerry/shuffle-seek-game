@@ -1,12 +1,12 @@
 [
-  { "id": 1, "title": "迈出第一步", "hint": "向右移动，抵达绿色终点。", "width": 6, "height": 6, "start": { "x": 0, "y": 2 }, "goal": { "x": 3, "y": 2 }, "obstacles": [] },
-  { "id": 2, "title": "向上生长", "hint": "试试向上，一步一步接近目标。", "width": 6, "height": 6, "start": { "x": 2, "y": 5 }, "goal": { "x": 2, "y": 1 }, "obstacles": [] },
-  { "id": 3, "title": "转个弯吧", "hint": "横向与纵向配合，找到自己的路线。", "width": 6, "height": 6, "start": { "x": 0, "y": 0 }, "goal": { "x": 4, "y": 3 }, "obstacles": [] },
-  { "id": 4, "title": "小小的阻碍", "hint": "前面走不通？换个方向绕过去。", "width": 6, "height": 6, "start": { "x": 0, "y": 2 }, "goal": { "x": 5, "y": 2 }, "obstacles": [{ "x": 2, "y": 2 }] },
-  { "id": 5, "title": "对角线之外", "hint": "不必走直线，边缘也藏着好路线。", "width": 6, "height": 6, "start": { "x": 0, "y": 0 }, "goal": { "x": 5, "y": 5 }, "obstacles": [{ "x": 1, "y": 1 }, { "x": 2, "y": 2 }, { "x": 3, "y": 3 }] },
-  { "id": 6, "title": "绕一点远路", "hint": "跨过这一排障碍，终点就在另一侧。", "width": 6, "height": 6, "start": { "x": 0, "y": 3 }, "goal": { "x": 5, "y": 3 }, "obstacles": [{ "x": 1, "y": 3 }, { "x": 2, "y": 3 }, { "x": 3, "y": 3 }] },
-  { "id": 7, "title": "墙的另一边", "hint": "沿着墙向下寻找，通道总会出现。", "width": 6, "height": 6, "start": { "x": 0, "y": 0 }, "goal": { "x": 5, "y": 0 }, "obstacles": [{ "x": 2, "y": 0 }, { "x": 2, "y": 1 }, { "x": 2, "y": 2 }, { "x": 2, "y": 3 }] },
-  { "id": 8, "title": "逆向出发", "hint": "从右下角出发，试着多转几次弯。", "width": 6, "height": 6, "start": { "x": 5, "y": 5 }, "goal": { "x": 0, "y": 0 }, "obstacles": [{ "x": 4, "y": 5 }, { "x": 4, "y": 4 }, { "x": 3, "y": 3 }, { "x": 2, "y": 2 }] },
-  { "id": 9, "title": "阶梯之间", "hint": "观察障碍之间的空隙，提前想好下一步。", "width": 6, "height": 6, "start": { "x": 0, "y": 5 }, "goal": { "x": 5, "y": 0 }, "obstacles": [{ "x": 1, "y": 5 }, { "x": 1, "y": 4 }, { "x": 2, "y": 3 }, { "x": 3, "y": 2 }, { "x": 4, "y": 1 }] },
-  { "id": 10, "title": "最后一段旅程", "hint": "穿过两道墙，把每个小步连成答案。", "width": 6, "height": 6, "start": { "x": 0, "y": 0 }, "goal": { "x": 5, "y": 5 }, "obstacles": [{ "x": 1, "y": 0 }, { "x": 1, "y": 1 }, { "x": 1, "y": 2 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }] }
+  { "id": 1, "title": "记住这份惊喜", "hint": "先记住星星，再盯紧它藏身的盒子。", "width": 2, "height": 2, "swaps": 3, "swapMs": 850, "previewMs": 2200 },
+  { "id": 2, "title": "跟上小变化", "hint": "盒子会交换位置，星星一直藏在同一个盒子里。", "width": 2, "height": 2, "swaps": 4, "swapMs": 800, "previewMs": 2000 },
+  { "id": 3, "title": "多看一眼", "hint": "交换次数变多了，别让目光跟丢。", "width": 2, "height": 2, "swaps": 6, "swapMs": 700, "previewMs": 1800 },
+  { "id": 4, "title": "九宫格的秘密", "hint": "更多盒子，更需要专注。", "width": 3, "height": 3, "swaps": 5, "swapMs": 750, "previewMs": 2200 },
+  { "id": 5, "title": "左右之间", "hint": "看清每一次交换，记住目标停在哪里。", "width": 3, "height": 3, "swaps": 7, "swapMs": 650, "previewMs": 2000 },
+  { "id": 6, "title": "别眨眼", "hint": "速度加快了一点，跟着目标盒子走。", "width": 3, "height": 3, "swaps": 9, "swapMs": 600, "previewMs": 1800 },
+  { "id": 7, "title": "藏在热闹之中", "hint": "不必记住所有盒子，只追踪藏星星的那个。", "width": 3, "height": 3, "swaps": 11, "swapMs": 550, "previewMs": 1600 },
+  { "id": 8, "title": "十六份可能", "hint": "棋盘变大了，先看准目标的起始位置。", "width": 4, "height": 4, "swaps": 10, "swapMs": 650, "previewMs": 2200 },
+  { "id": 9, "title": "专注的魔法", "hint": "看着盒子交换，最后相信自己的判断。", "width": 4, "height": 4, "swaps": 13, "swapMs": 550, "previewMs": 1800 },
+  { "id": 10, "title": "最后的惊喜", "hint": "跟紧每次变化，找出最后一颗星星。", "width": 4, "height": 4, "swaps": 16, "swapMs": 500, "previewMs": 1600 }
 ]

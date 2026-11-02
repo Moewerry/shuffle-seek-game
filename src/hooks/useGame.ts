@@ -1,31 +1,42 @@
-import { useCallback, useReducer } from 'react'
-import type { Direction, Level, Position } from '../game/types'
-import { movePosition, samePosition } from '../game/rules'
+import { useCallback, useEffect, useReducer } from 'react'
+import { createRound, swapSlots, TARGET } from '../game/shuffle'
+import type { Level, Round } from '../game/types'
 
-type State = { position: Position; previous: Position | null; steps: number; status: 'playing' | 'paused' | 'won' }
 type Action =
-  | { type: 'move'; direction: Direction }
-  | { type: 'reset' }
-  | { type: 'undo' }
+  | { type: 'advance' }
+  | { type: 'pick'; slot: number }
+  | { type: 'reset'; round: Round }
   | { type: 'pause' }
   | { type: 'resume' }
 
+function reducer(state: Round, action: Action): Round {
+  if (action.type === 'reset') return action.round
+  if (action.type === 'resume') return { ...state, paused: false }
+  if (action.type === 'pause') return state.phase === 'won' || state.phase === 'lost' ? state : { ...state, paused: true }
+  if (state.paused) return state
+  if (action.type === 'pick') {
+    if (state.phase !== 'choosing' || !Number.isInteger(action.slot) || action.slot < 0 || action.slot >= state.slots.length) return state
+    return { ...state, selected: action.slot, phase: state.slots[action.slot] === TARGET ? 'won' : 'lost' }
+  }
+  if (state.phase === 'preview') return { ...state, phase: 'covering' }
+  if (state.phase === 'covering') return { ...state, phase: 'shuffling' }
+  if (state.phase !== 'shuffling') return state
+  if (state.cursor === state.plan.length) return { ...state, phase: 'choosing' }
+  return { ...state, slots: swapSlots(state.slots, state.plan[state.cursor]), cursor: state.cursor + 1 }
+}
+
 export function useGame(level: Level) {
-  const initial: State = { position: level.start, previous: null, steps: 0, status: 'playing' }
-  const [state, dispatch] = useReducer((state: State, action: Action): State => {
-    if (action.type === 'reset') return initial
-    if (action.type === 'resume') return state.status === 'paused' ? { ...state, status: 'playing' } : state
-    if (state.status !== 'playing') return state
-    if (action.type === 'pause') return { ...state, status: 'paused' }
-    if (action.type === 'undo') return state.previous ? { ...state, position: state.previous, previous: null, steps: state.steps - 1 } : state
-    const position = movePosition(level, state.position, action.direction)
-    if (!position) return state
-    return { position, previous: state.position, steps: state.steps + 1, status: samePosition(position, level.goal) ? 'won' : 'playing' }
-  }, initial)
-  const move = useCallback((direction: Direction) => dispatch({ type: 'move', direction }), [])
-  const reset = useCallback(() => dispatch({ type: 'reset' }), [])
-  const undo = useCallback(() => dispatch({ type: 'undo' }), [])
+  const [state, dispatch] = useReducer(reducer, level, createRound)
+  useEffect(() => {
+    if (state.paused || !['preview', 'covering', 'shuffling'].includes(state.phase)) return
+    const delay = state.phase === 'preview' ? level.previewMs
+      : state.phase === 'covering' ? 450 : level.swapMs
+    const timer = window.setTimeout(() => dispatch({ type: 'advance' }), delay)
+    return () => window.clearTimeout(timer)
+  }, [state, level])
+  const pick = useCallback((slot: number) => dispatch({ type: 'pick', slot }), [])
+  const reset = useCallback(() => dispatch({ type: 'reset', round: createRound(level) }), [level])
   const pause = useCallback(() => dispatch({ type: 'pause' }), [])
   const resume = useCallback(() => dispatch({ type: 'resume' }), [])
-  return { ...state, move, reset, undo, pause, resume }
+  return { ...state, pick, reset, pause, resume }
 }

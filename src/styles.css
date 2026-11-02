@@ -32,36 +32,43 @@
   * { @apply border-border; box-sizing: border-box; }
   body { @apply m-0 bg-background text-foreground; overflow: hidden; overscroll-behavior: none; }
   button { touch-action: manipulation; cursor: pointer; }
-  a { color: inherit; text-decoration: none; }
 }
 
 @layer components {
   .app-shell { @apply mx-auto grid max-w-6xl gap-3; height: 100svh; height: 100dvh; grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); }
   .home-layout { @apply grid items-center gap-8; grid-template-columns: 1.25fr 0.75fr; }
   .home-art { @apply flex aspect-square max-h-80 flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; transform: rotate(-7deg); }
-  .game-layout { @apply grid min-h-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(210px, 0.6fr); }
-  .board-area { @apply flex h-full min-h-0 items-center justify-center; touch-action: none; user-select: none; }
-  .board-frame { @apply aspect-square rounded-2xl border border-border bg-card p-3 shadow-sm; width: min(100%, calc(100dvh - 116px)); }
+  .game-layout { @apply grid min-h-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.65fr); }
+  .board-area { @apply flex h-full min-h-0 items-center justify-center; touch-action: manipulation; user-select: none; }
+  .board-frame { @apply aspect-square rounded-3xl border border-border bg-card p-3 shadow-sm; width: min(100%, calc(100dvh - 116px)); }
+  .blind-board { @apply relative size-full; }
   .game-sidebar { @apply flex min-h-0 flex-col items-start justify-center gap-4; }
-  .direction-pad { @apply grid gap-2; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 44px); }
-  .direction-pad button { @apply h-full w-full p-0; }
   .orientation-notice { @apply fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background px-8 text-center; }
 }
 
+/* Override Button's default color transition: box positions must animate. */
+.blind-card { @apply absolute rounded-2xl border-2 border-border bg-muted p-0 text-muted-foreground shadow-sm; transition-property: left, top; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); -webkit-tap-highlight-color: transparent; }
+.blind-card:not(:disabled):hover { @apply border-primary bg-secondary text-primary; }
+.blind-card .box-symbol { width: clamp(18px, 4vw, 40px); height: clamp(18px, 4vw, 40px); }
+.blind-card-target { @apply border-amber-300 bg-amber-100 text-amber-600; }
+.blind-card-wrong { @apply border-rose-300 bg-rose-50 text-rose-500; }
+.blind-card-empty { @apply bg-background text-border; }
+
 @media (orientation: landscape) and (max-height: 640px) {
   .app-shell { gap: 6px; padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: max(6px, env(safe-area-inset-bottom)); }
-  .game-layout { grid-template-columns: minmax(0, 1fr) minmax(300px, 0.95fr); gap: 20px; }
-  .board-frame { width: min(100%, calc(100dvh - 94px - env(safe-area-inset-top) - env(safe-area-inset-bottom))); padding: 8px; }
-  .game-sidebar { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 6px 12px; align-content: center; align-items: center; }
-  .game-info { grid-column: 1 / -1; }
+  .game-layout { grid-template-columns: minmax(0, 1fr) minmax(250px, 0.85fr); gap: 20px; }
+  .board-frame { width: min(100%, calc(100dvh - 94px - env(safe-area-inset-top) - env(safe-area-inset-bottom))); padding: 6px; }
+  .blind-card { border-radius: 12px; }
+  .game-sidebar { gap: 8px; }
   .game-info h1 { font-size: 20px; line-height: 1.3; margin-top: 3px; }
-  .game-info p:last-child { margin-top: 3px; font-size: 12px; }
-  .game-steps { grid-column: 2; grid-row: 2; font-size: 12px; }
-  .direction-pad { grid-column: 1; grid-row: 2 / 5; gap: 4px; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); }
-  .game-toolbar { grid-column: 2; grid-row: 3; flex-wrap: nowrap; gap: 4px; }
-  .game-toolbar button { height: 44px; width: 44px; padding: 0; }
-  .game-toolbar button span { display: none; }
-  .game-home { grid-column: 2; grid-row: 4; justify-self: start; height: 40px; padding: 0 8px; }
+  .game-info p:last-child { display: none; }
+  .phase-indicator { padding: 10px 12px; border-radius: 12px; }
+  .phase-indicator > div:first-child { margin-bottom: 6px; }
+  .phase-indicator > div:last-child { margin-top: 6px; }
+  .phase-indicator > p:nth-child(3) { margin-top: 4px; }
+  .game-rule { display: none; }
+  .game-actions button { height: 44px; }
+  .game-home { height: 36px; padding: 0 8px; }
   .home-layout { gap: 24px; grid-template-columns: 1.4fr 0.6fr; }
   .home-layout h1 { font-size: 36px; }
   .home-layout section > p:first-child { margin-bottom: 8px; }
@@ -75,6 +82,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-  button:active { transform: none !important; }
+  /* Box swaps are essential gameplay information; keep their tracking animation. */
+  button:active { scale: 1 !important; }
+  .phase-indicator * { transition: none !important; }
+}
+
+@media (orientation: landscape) and (max-height: 360px) {
+  .game-sidebar { gap: 6px; }
+  .phase-indicator > p:nth-child(3) { display: none; }
 }

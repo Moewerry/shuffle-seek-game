@@ -1,6 +1,7 @@
 import { levels } from '../game/levels'
 
-const KEY = 'shuffle-seek:progress:v1'
+// Separate the new memory game from the previous movement game's progress.
+const KEY = 'shuffle-seek:blind-box:progress:v1'
 export type Progress = { version: 1; unlocked: number; completed: number[]; sound: boolean }
 const defaults: Progress = { version: 1, unlocked: 1, completed: [], sound: true }
 
