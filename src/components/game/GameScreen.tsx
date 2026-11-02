@@ -30,8 +30,8 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
   const finished = game.phase === 'won' || game.phase === 'lost'
 
   return <main className="game-layout">
-    <section className="board-area" aria-label="记住星星，观察交换，最后点开盲盒">
-      <Board level={level} slots={game.slots} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} />
+    <section className="board-area" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
+      <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} />
     </section>
     <aside className="game-sidebar">
       <div className="game-info">
@@ -39,8 +39,8 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
         <h1 className="mt-2 text-2xl font-bold">{level.title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{level.hint}</p>
       </div>
-      <PhaseIndicator phase={game.phase} paused={game.paused} cursor={game.cursor} total={level.swaps} />
-      <p className="game-rule text-xs leading-relaxed text-muted-foreground">记住 ★ → 盖上盒子 → 观察交换 → 点击揭晓<br />每轮只有一次选择，猜错可以重新挑战。</p>
+      <PhaseIndicator phase={game.phase} paused={game.paused} cursor={game.cursor} total={level.swaps} shift={game.lastShift} />
+      <p className="game-rule text-xs leading-relaxed text-muted-foreground">记住 ★ → 观察整行/整列平移 → 点击揭晓<br />移出边缘的盒子会从另一侧进入。</p>
       <div className="game-actions flex flex-wrap gap-2">
         <Button variant="outline" size="sm" disabled={finished || game.paused} onClick={game.pause}><Pause /> 暂停</Button>
         <Button variant="outline" size="sm" disabled={finished || game.paused} onClick={game.reset}><RotateCcw /> 重新观察</Button>

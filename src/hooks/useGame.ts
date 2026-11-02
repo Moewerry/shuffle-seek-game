@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useReducer } from 'react'
-import { createRound, swapSlots, TARGET } from '../game/shuffle'
+import { createRound, shiftSlots, TARGET } from '../game/shuffle'
 import type { Level, Round } from '../game/types'
 
 type Action =
-  | { type: 'advance' }
+  | { type: 'advance'; level: Level }
   | { type: 'pick'; slot: number }
   | { type: 'reset'; round: Round }
   | { type: 'pause' }
@@ -22,7 +22,8 @@ function reducer(state: Round, action: Action): Round {
   if (state.phase === 'covering') return { ...state, phase: 'shuffling' }
   if (state.phase !== 'shuffling') return state
   if (state.cursor === state.plan.length) return { ...state, phase: 'choosing' }
-  return { ...state, slots: swapSlots(state.slots, state.plan[state.cursor]), cursor: state.cursor + 1 }
+  const shift = state.plan[state.cursor]
+  return { ...state, slots: shiftSlots(state.slots, shift, action.level), lastShift: shift, cursor: state.cursor + 1 }
 }
 
 export function useGame(level: Level) {
@@ -31,7 +32,7 @@ export function useGame(level: Level) {
     if (state.paused || !['preview', 'covering', 'shuffling'].includes(state.phase)) return
     const delay = state.phase === 'preview' ? level.previewMs
       : state.phase === 'covering' ? 450 : level.swapMs
-    const timer = window.setTimeout(() => dispatch({ type: 'advance' }), delay)
+    const timer = window.setTimeout(() => dispatch({ type: 'advance', level }), delay)
     return () => window.clearTimeout(timer)
   }, [state, level])
   const pick = useCallback((slot: number) => dispatch({ type: 'pick', slot }), [])

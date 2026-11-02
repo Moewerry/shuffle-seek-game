@@ -10,10 +10,11 @@ export type Level = {
 }
 
 export type Phase = 'preview' | 'covering' | 'shuffling' | 'choosing' | 'won' | 'lost'
-export type Swap = readonly [number, number]
+export type LineShift = { axis: 'row' | 'column'; index: number; direction: 1 | -1 }
 export type Round = {
   slots: number[]
-  plan: Swap[]
+  plan: LineShift[]
+  lastShift: LineShift | null
   cursor: number
   phase: Phase
   paused: boolean
