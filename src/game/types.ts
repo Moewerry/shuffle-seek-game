@@ -19,4 +19,5 @@ export type Round = {
   phase: Phase
   paused: boolean
   selected: number | null
+  countdown?: number
 }

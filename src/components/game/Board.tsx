@@ -16,9 +16,10 @@ type Props = {
   selected: number | null
   onPick: (slot: number) => void
   showPreviewMask?: boolean
+  countdown?: number
 }
 
-export function Board({ level, slots, shift, phase, paused, selected, onPick, showPreviewMask = false }: Props) {
+export function Board({ level, slots, shift, phase, paused, selected, onPick, showPreviewMask = false, countdown }: Props) {
   const boardRef = useRef<HTMLDivElement>(null)
   const pausedAnimations = useRef<Animation[]>([])
   const moving = phase === 'shuffling' && shift !== null
@@ -80,7 +81,7 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
         </Button>
       })}
       {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><span className="box-face"><HelpCircle /></span></div>}
-      {showPreviewMask && <BoardMask phase={phase} paused={paused} />}
+      {showPreviewMask && <BoardMask phase={phase} paused={paused} countdown={countdown} />}
     </div>
   </div>
 }

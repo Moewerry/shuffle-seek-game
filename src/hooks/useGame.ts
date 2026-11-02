@@ -19,8 +19,11 @@ function reducer(state: Round, action: Action): Round {
     if (state.phase !== 'choosing' || !Number.isInteger(action.slot) || action.slot < 0 || action.slot >= state.slots.length) return state
     return { ...state, selected: action.slot, phase: state.slots[action.slot] === TARGET ? 'won' : 'lost' }
   }
-  if (state.phase === 'ready') return { ...state, phase: 'preview' }
-  if (state.phase === 'preview') return { ...state, phase: 'covering' }
+  if (state.phase === 'ready') return { ...state, phase: 'preview', countdown: 3 }
+  if (state.phase === 'preview') {
+    if (state.countdown !== undefined && state.countdown > 1) return { ...state, countdown: state.countdown - 1 }
+    return { ...state, phase: 'covering', countdown: undefined }
+  }
   if (state.phase === 'covering') return { ...state, phase: action.waitForTap ? 'prompt' : 'shuffling' }
   if (state.phase !== 'shuffling') return state
   if (state.cursor === state.plan.length) return { ...state, phase: 'choosing' }
@@ -32,7 +35,7 @@ export function useGame(level: Level, factory = createRound, waitForTap = false)
   const [state, dispatch] = useReducer(reducer, level, factory)
   useEffect(() => {
     if (state.paused || !['ready', 'preview', 'covering', 'shuffling'].includes(state.phase)) return
-    const delay = state.phase === 'ready' ? 1200 : state.phase === 'preview' ? level.previewMs
+    const delay = state.phase === 'ready' ? 1200 : state.phase === 'preview' ? state.countdown !== undefined ? 1000 : level.previewMs
       : state.phase === 'covering' ? 450 : level.swapMs
     const timer = window.setTimeout(() => dispatch({ type: 'advance', level, waitForTap }), delay)
     return () => window.clearTimeout(timer)

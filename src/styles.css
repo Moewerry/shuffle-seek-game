@@ -40,8 +40,9 @@
   .app-shell { @apply mx-auto grid max-w-6xl gap-3; height: var(--game-height); grid-template-rows: auto minmax(0, 1fr) auto; padding: max(12px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); }
   .app-shell-playing { grid-template-rows: minmax(0, 1fr) auto; }
   .game-view { @apply grid h-full min-h-0 gap-2; grid-template-rows: auto minmax(0, 1fr); }
-  .home-layout { @apply grid items-center gap-8; grid-template-columns: 1.25fr 0.75fr; }
-  .home-art { @apply flex aspect-square max-h-80 flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; transform: rotate(-7deg); }
+  .home-layout { @apply mx-auto grid w-full min-h-0 items-center justify-center gap-10; max-width: 800px; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); padding-inline: 24px; }
+  .home-title { font-size: clamp(32px, calc(var(--game-width) * 0.052), 56px); line-height: 1.1; }
+  .home-art { @apply mx-auto flex aspect-square w-full flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; max-width: min(260px, calc(var(--game-height) * 0.58)); transform: rotate(-7deg); }
   .game-layout { @apply grid h-full min-h-0 min-w-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr); }
   .board-area { @apply flex h-full min-h-0 min-w-0 items-center justify-center; container-type: size; touch-action: manipulation; user-select: none; }
   .board-frame { @apply aspect-square rounded-3xl border border-border bg-card p-3 shadow-sm; width: min(100cqw, 100cqh); }
@@ -87,12 +88,10 @@
   .tutorial-message { padding: 12px; border-radius: 20px; }
   .tutorial-message h1 { font-size: 16px; }
   .tutorial-message p { margin-top: 6px; line-height: 1.5; }
-  .home-layout { gap: 24px; grid-template-columns: 1.4fr 0.6fr; }
-  .home-layout h1 { font-size: 36px; }
-  .home-layout section > p { margin-top: 8px; }
-  .home-layout section > div { margin-top: 14px; }
+  .home-layout { max-width: 700px; gap: 32px; padding-inline: 16px; }
+  .home-actions { margin-top: 22px; gap: 10px; }
   .home-layout button { height: 44px; padding: 0 16px; font-size: 14px; }
-  .home-art { max-height: 200px; border-radius: 32px; }
+  .home-art { border-radius: 32px; }
   .home-art > span { margin-top: 8px; }
 }
 

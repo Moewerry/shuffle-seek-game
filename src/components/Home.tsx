@@ -3,11 +3,12 @@ import { Button } from './ui/button'
 
 export function Home({ onStart, onTutorial, currentLevel }: { onStart: () => void; onTutorial: () => void; currentLevel: number }) {
   return <main className="home-layout">
-    <section className="max-w-lg">
-      <h1 className="text-5xl font-black tracking-tight lg:text-7xl">Shuffle<span className="text-primary"> Seek.</span></h1>
-      <p className="mt-4 text-sm text-muted-foreground">当前在第 {currentLevel} 关</p>
-      <div className="mt-6 flex flex-wrap gap-3"><Button size="lg" onClick={onStart}>{currentLevel > 1 ? '继续闯关' : '开始游戏'} <ArrowRight /></Button></div>
-      <Button variant="ghost" className="mt-3" onClick={onTutorial}>新手教学</Button>
+    <section className="flex min-w-0 flex-col items-center text-center">
+      <h1 className="home-title font-black tracking-tight">Shuffle<span className="text-primary"> Seek.</span></h1>
+      <div className="home-actions mt-7 grid w-full max-w-sm grid-cols-2 gap-3">
+        <Button size="lg" className="w-full px-4" onClick={onStart}>{currentLevel > 1 ? '继续闯关' : '开始游戏'} <ArrowRight /></Button>
+        <Button variant="outline" size="lg" className="w-full px-4" onClick={onTutorial}>新手教学</Button>
+      </div>
     </section>
     <div className="home-art" aria-hidden="true"><Grid2X2 className="size-12 text-primary/40" /><span className="mt-5 block text-7xl">★</span></div>
   </main>

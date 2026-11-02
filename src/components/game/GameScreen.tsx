@@ -11,6 +11,8 @@ import { ResultDialog } from './ResultDialog'
 
 type Props = { level: Level; total: number; sound: boolean; onHome: () => void; onComplete: (id: number) => void; onNext?: () => void }
 
+const levelNumbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+
 export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: Props) {
   const game = useGame(level)
   const playSound = useSound(sound)
@@ -27,14 +29,11 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
 
   return <div className="game-view">
     <GameToolbar onSettings={game.pause} disabled={finished || game.paused}>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-        <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
-        <p className="text-xs text-muted-foreground" role="status" aria-live="polite">{game.phase === 'choosing' ? '找出星星 · 剩余 1 次机会' : finished ? '剩余 0 次机会' : '1 颗星星 · 1 次机会'}</p>
-      </div>
+      <h1 className="inline-flex items-center rounded-full border border-primary/10 bg-secondary/60 px-4 py-2 text-sm font-semibold tracking-widest text-primary">第{levelNumbers[level.id - 1] ?? level.id}关</h1>
     </GameToolbar>
     <main className="min-h-0">
     <section className="board-area" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
-      <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} showPreviewMask />
+      <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} showPreviewMask countdown={game.countdown} />
     </section>
     <ResultDialog open={finished} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />
     <PauseDialog open={game.paused} onResume={game.resume} onReset={game.reset} onHome={onHome} />
