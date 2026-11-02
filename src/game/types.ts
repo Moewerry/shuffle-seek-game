@@ -9,7 +9,7 @@ export type Level = {
   previewMs: number
 }
 
-export type Phase = 'preview' | 'covering' | 'prompt' | 'shuffling' | 'choosing' | 'won' | 'lost'
+export type Phase = 'ready' | 'preview' | 'covering' | 'prompt' | 'shuffling' | 'choosing' | 'won' | 'lost'
 export type LineShift = { axis: 'row' | 'column'; index: number; direction: 1 | -1 }
 export type Round = {
   slots: number[]

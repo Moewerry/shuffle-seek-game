@@ -35,5 +35,5 @@ export function createRound(level: Level): Round {
     plan.push(shift)
     simulated = shiftSlots(simulated, shift, level)
   }
-  return { slots, plan, lastShift: null, cursor: 0, phase: 'preview', paused: false, selected: null }
+  return { slots, plan, lastShift: null, cursor: 0, phase: 'ready', paused: false, selected: null }
 }

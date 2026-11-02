@@ -5,6 +5,7 @@ import type { Level, LineShift, Phase } from '../../game/types'
 import { cn } from '../../lib/utils'
 import { Button } from '../ui/button'
 import { TutorialGesture } from './TutorialGesture'
+import { BoardMask } from './BoardMask'
 
 type Props = {
   level: Level
@@ -14,9 +15,10 @@ type Props = {
   paused: boolean
   selected: number | null
   onPick: (slot: number) => void
+  showPreviewMask?: boolean
 }
 
-export function Board({ level, slots, shift, phase, paused, selected, onPick }: Props) {
+export function Board({ level, slots, shift, phase, paused, selected, onPick, showPreviewMask = false }: Props) {
   const boardRef = useRef<HTMLDivElement>(null)
   const pausedAnimations = useRef<Animation[]>([])
   const moving = phase === 'shuffling' && shift !== null
@@ -72,12 +74,13 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick }: 
         return <Button key={id} variant="ghost" disabled={!canPick || (phase === 'prompt' && id !== TARGET)} data-slot={slot}
           onClick={() => onPick(slot)}
           aria-label={`第 ${Math.floor(slot / level.width) + 1} 行，第 ${slot % level.width + 1} 列，${targetVisible ? '目标星星' : wrong ? '选中的空盒' : empty ? '空盒' : '未揭晓的盲盒'}`}
-          className="blind-card disabled:opacity-100" style={slotStyle(slot)}>
+          className={cn('blind-card disabled:opacity-100', showPreviewMask && phase === 'preview' && targetVisible && 'z-20')} style={slotStyle(slot)}>
           <span className={cn('box-face', targetVisible && 'box-target', wrong && 'box-wrong', empty && 'box-empty', guided && 'ring-4 ring-violet-300 ring-offset-4')}><Icon className={targetVisible ? 'fill-current' : undefined} aria-hidden="true" /></span>
           {guided && <TutorialGesture />}
         </Button>
       })}
       {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><span className="box-face"><HelpCircle /></span></div>}
+      {showPreviewMask && <BoardMask phase={phase} paused={paused} />}
     </div>
   </div>
 }

@@ -19,6 +19,7 @@ function reducer(state: Round, action: Action): Round {
     if (state.phase !== 'choosing' || !Number.isInteger(action.slot) || action.slot < 0 || action.slot >= state.slots.length) return state
     return { ...state, selected: action.slot, phase: state.slots[action.slot] === TARGET ? 'won' : 'lost' }
   }
+  if (state.phase === 'ready') return { ...state, phase: 'preview' }
   if (state.phase === 'preview') return { ...state, phase: 'covering' }
   if (state.phase === 'covering') return { ...state, phase: action.waitForTap ? 'prompt' : 'shuffling' }
   if (state.phase !== 'shuffling') return state
@@ -30,8 +31,8 @@ function reducer(state: Round, action: Action): Round {
 export function useGame(level: Level, factory = createRound, waitForTap = false) {
   const [state, dispatch] = useReducer(reducer, level, factory)
   useEffect(() => {
-    if (state.paused || !['preview', 'covering', 'shuffling'].includes(state.phase)) return
-    const delay = state.phase === 'preview' ? level.previewMs
+    if (state.paused || !['ready', 'preview', 'covering', 'shuffling'].includes(state.phase)) return
+    const delay = state.phase === 'ready' ? 1200 : state.phase === 'preview' ? level.previewMs
       : state.phase === 'covering' ? 450 : level.swapMs
     const timer = window.setTimeout(() => dispatch({ type: 'advance', level, waitForTap }), delay)
     return () => window.clearTimeout(timer)

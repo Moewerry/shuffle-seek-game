@@ -27,11 +27,14 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
 
   return <div className="game-view">
     <GameToolbar onSettings={game.pause} disabled={finished || game.paused}>
-      <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
+        <p className="text-xs text-muted-foreground" role="status" aria-live="polite">{game.phase === 'choosing' ? '找出星星 · 剩余 1 次机会' : finished ? '剩余 0 次机会' : '1 颗星星 · 1 次机会'}</p>
+      </div>
     </GameToolbar>
     <main className="min-h-0">
     <section className="board-area" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
-      <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} />
+      <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} showPreviewMask />
     </section>
     <ResultDialog open={finished} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />
     <PauseDialog open={game.paused} onResume={game.resume} onReset={game.reset} onHome={onHome} />
