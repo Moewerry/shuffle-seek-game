@@ -3,7 +3,6 @@ import { useCallback, useEffect } from 'react'
 import { useGame } from '../../hooks/useGame'
 import { useSound } from '../../hooks/useSound'
 import { useAutoPause } from '../../hooks/useAutoPause'
-import { usePortrait } from '../../hooks/usePortrait'
 import { TARGET } from '../../game/shuffle'
 import type { Level } from '../../game/types'
 import { Button } from '../ui/button'
@@ -15,7 +14,6 @@ import { ResultDialog } from './ResultDialog'
 type Props = { level: Level; total: number; sound: boolean; onHome: () => void; onComplete: (id: number) => void; onNext?: () => void }
 
 export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: Props) {
-  const portrait = usePortrait()
   const game = useGame(level)
   const playSound = useSound(sound)
   useAutoPause(game.pause)
@@ -37,17 +35,15 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
       <div className="game-info">
         <p className="text-xs font-bold tracking-widest text-primary">LEVEL {String(level.id).padStart(2, '0')} / {String(total).padStart(2, '0')}</p>
         <h1 className="mt-2 text-2xl font-bold">{level.title}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{level.hint}</p>
       </div>
       <PhaseIndicator phase={game.phase} paused={game.paused} cursor={game.cursor} total={level.swaps} shift={game.lastShift} />
-      <p className="game-rule text-xs leading-relaxed text-muted-foreground">记住 ★ → 观察整行/整列平移 → 点击揭晓<br />移出边缘的盒子会从另一侧进入。</p>
       <div className="game-actions flex flex-wrap gap-2">
         <Button variant="outline" size="sm" disabled={finished || game.paused} onClick={game.pause}><Pause /> 暂停</Button>
         <Button variant="outline" size="sm" disabled={finished || game.paused} onClick={game.reset}><RotateCcw /> 重新观察</Button>
       </div>
       <Button variant="ghost" className="game-home" onClick={onHome}><ArrowLeft /> 返回首页</Button>
     </aside>
-    <ResultDialog open={finished && !portrait} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />
-    <PauseDialog open={game.paused && !portrait} onResume={game.resume} onReset={game.reset} onHome={onHome} />
+    <ResultDialog open={finished} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />
+    <PauseDialog open={game.paused} onResume={game.resume} onReset={game.reset} onHome={onHome} />
   </main>
 }
