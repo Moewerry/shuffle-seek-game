@@ -2,8 +2,8 @@ import { levels } from '../game/levels'
 
 // Separate the new memory game from the previous movement game's progress.
 const KEY = 'shuffle-seek:blind-box:progress:v1'
-export type Progress = { version: 1; unlocked: number; completed: number[]; sound: boolean }
-const defaults: Progress = { version: 1, unlocked: 1, completed: [], sound: true }
+export type Progress = { version: 1; unlocked: number; completed: number[]; sound: boolean; tutorialCompleted: boolean }
+const defaults: Progress = { version: 1, unlocked: 1, completed: [], sound: true, tutorialCompleted: false }
 
 export function readProgress(): Progress {
   try {
@@ -15,7 +15,7 @@ export function readProgress(): Progress {
       ? Math.min(levels.length, Math.max(1, data.unlocked)) : 1
     const completed = Array.isArray(data.completed)
       ? [...new Set(data.completed.filter((id): id is number => typeof id === 'number' && Number.isInteger(id) && id >= 1 && id <= unlocked && (id < unlocked || id === levels.length)))] : []
-    return { version: 1, unlocked, completed, sound: typeof data.sound === 'boolean' ? data.sound : true }
+    return { version: 1, unlocked, completed, sound: typeof data.sound === 'boolean' ? data.sound : true, tutorialCompleted: data.tutorialCompleted === true }
   } catch {
     return defaults
   }

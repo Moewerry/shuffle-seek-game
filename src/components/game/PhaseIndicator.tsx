@@ -2,7 +2,7 @@ import { Eye, Hand, Shuffle, Star } from 'lucide-react'
 import type { LineShift, Phase } from '../../game/types'
 
 const labels: Record<Phase, string> = {
-  preview: '记住星星的位置', covering: '准备打乱', shuffling: '打乱中',
+  preview: '记住星星的位置', covering: '准备打乱', prompt: '点击高亮的盒子', shuffling: '打乱中',
   choosing: '选择盒子', won: '找到了', lost: '未找到',
 }
 

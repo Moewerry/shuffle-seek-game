@@ -1,7 +1,7 @@
 [
-  { "id": 1, "title": "记住这份惊喜", "hint": "先记住星星，再盯紧它藏身的盒子。", "width": 2, "height": 2, "swaps": 3, "swapMs": 850, "previewMs": 2200 },
-  { "id": 2, "title": "跟上小变化", "hint": "盒子会平移位置，星星一直藏在同一个盒子里。", "width": 2, "height": 2, "swaps": 4, "swapMs": 800, "previewMs": 2000 },
-  { "id": 3, "title": "多看一眼", "hint": "平移次数变多了，别让目光跟丢。", "width": 2, "height": 2, "swaps": 6, "swapMs": 700, "previewMs": 1800 },
+  { "id": 1, "title": "记住这份惊喜", "hint": "先记住星星，再盯紧它藏身的盒子。", "width": 3, "height": 3, "swaps": 3, "swapMs": 850, "previewMs": 2200 },
+  { "id": 2, "title": "跟上小变化", "hint": "盒子会平移位置，星星一直藏在同一个盒子里。", "width": 3, "height": 3, "swaps": 4, "swapMs": 800, "previewMs": 2000 },
+  { "id": 3, "title": "多看一眼", "hint": "平移次数变多了，别让目光跟丢。", "width": 3, "height": 3, "swaps": 6, "swapMs": 700, "previewMs": 1800 },
   { "id": 4, "title": "九宫格的秘密", "hint": "更多盒子，更需要专注。", "width": 3, "height": 3, "swaps": 5, "swapMs": 750, "previewMs": 2200 },
   { "id": 5, "title": "左右之间", "hint": "看清每一次平移，记住目标停在哪里。", "width": 3, "height": 3, "swaps": 7, "swapMs": 650, "previewMs": 2000 },
   { "id": 6, "title": "别眨眼", "hint": "速度加快了一点，跟着目标盒子走。", "width": 3, "height": 3, "swaps": 9, "swapMs": 600, "previewMs": 1800 },

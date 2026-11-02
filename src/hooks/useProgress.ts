@@ -14,5 +14,6 @@ export function useProgress() {
     })
   }, [])
   const toggleSound = useCallback(() => setProgress(value => ({ ...value, sound: !value.sound })), [])
-  return { ...progress, storageAvailable, complete, toggleSound }
+  const completeTutorial = useCallback(() => setProgress(value => ({ ...value, tutorialCompleted: true })), [])
+  return { ...progress, storageAvailable, complete, toggleSound, completeTutorial }
 }
