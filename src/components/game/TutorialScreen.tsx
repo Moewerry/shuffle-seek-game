@@ -51,7 +51,7 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
         {tutorialSteps.map((item, index) => <span key={item.title} className={`h-1.5 w-7 rounded-full ${index <= step ? 'bg-violet-500' : 'bg-violet-200'}`} />)}
       </div>
       <div className="game-actions flex flex-wrap gap-2">
-        {won ? <Button disabled={game.paused} onClick={final ? onFinish : onNext}>{final ? '开始正式关卡' : step === 0 ? '开始练习' : '下一次练习'}<ArrowRight /></Button>
+        {won ? <Button disabled={game.paused} onClick={final ? onFinish : onNext}>{final ? '完成教学，返回首页' : step === 0 ? '开始练习' : '下一次练习'}<ArrowRight /></Button>
           : <Button variant="outline" disabled={game.paused} onClick={game.reset}><RotateCcw />{lost ? '再试一次' : '重新观察'}</Button>}
         {!won && !lost && <Button variant="ghost" disabled={game.paused} onClick={game.pause}><Pause />暂停</Button>}
       </div>
