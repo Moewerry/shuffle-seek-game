@@ -7,7 +7,6 @@ import type { Level } from '../../game/types'
 import { GameToolbar } from './GameToolbar'
 import { Board } from './Board'
 import { PauseDialog } from './PauseDialog'
-import { PhaseIndicator } from './PhaseIndicator'
 import { ResultDialog } from './ResultDialog'
 
 type Props = { level: Level; total: number; sound: boolean; onHome: () => void; onComplete: (id: number) => void; onNext?: () => void }
@@ -27,17 +26,13 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
   const finished = game.phase === 'won' || game.phase === 'lost'
 
   return <div className="game-view">
-    <GameToolbar onSettings={game.pause} disabled={finished || game.paused} />
-    <main className="game-layout">
+    <GameToolbar onSettings={game.pause} disabled={finished || game.paused}>
+      <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
+    </GameToolbar>
+    <main className="min-h-0">
     <section className="board-area" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
       <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} />
     </section>
-    <aside className="game-sidebar">
-      <div className="game-info">
-        <p className="text-sm font-bold text-primary">当前在第 {level.id} 关</p>
-      </div>
-      <PhaseIndicator phase={game.phase} paused={game.paused} cursor={game.cursor} total={level.swaps} shift={game.lastShift} />
-    </aside>
     <ResultDialog open={finished} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />
     <PauseDialog open={game.paused} onResume={game.resume} onReset={game.reset} onHome={onHome} />
     </main>
