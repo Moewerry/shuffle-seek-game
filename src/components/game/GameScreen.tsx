@@ -32,7 +32,7 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
       <h1 className="inline-flex items-center rounded-full border border-primary/10 bg-secondary/60 px-4 py-2 text-sm font-semibold tracking-widest text-primary">第{levelNumbers[level.id - 1] ?? level.id}关</h1>
     </GameToolbar>
     <main className="min-h-0">
-    <section className="board-area" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
+    <section className="board-area relative z-20" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
       <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={pick} showPreviewMask countdown={game.countdown} />
     </section>
     <ResultDialog open={finished} won={game.phase === 'won'} level={level} targetSlot={game.slots.indexOf(TARGET)} onReplay={game.reset} onHome={onHome} onNext={onNext} lastLevel={level.id === total} />

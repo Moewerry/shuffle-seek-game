@@ -54,11 +54,11 @@
 /* Large click areas, smaller visible boxes, and clear lanes between them. */
 .blind-card { @apply absolute flex items-center justify-center border-0 bg-transparent p-0; transition: none; -webkit-tap-highlight-color: transparent; }
 .blind-card:hover { background: transparent; }
-.box-face { @apply flex items-center justify-center rounded-xl border-2 border-border bg-muted text-muted-foreground shadow-sm; width: 66%; height: 66%; max-width: 80px; max-height: 80px; }
+.box-face { @apply flex items-center justify-center rounded-xl bg-muted text-muted-foreground; width: 66%; height: 66%; max-width: 80px; max-height: 80px; }
 .box-face svg { width: 40%; height: 40%; }
-.blind-card:not(:disabled):hover .box-face { @apply border-primary bg-secondary text-primary; }
-.box-target { @apply border-amber-300 bg-amber-100 text-amber-600; }
-.box-wrong { @apply border-rose-300 bg-rose-50 text-rose-500; }
+.blind-card:not(:disabled):hover .box-face { @apply bg-secondary text-primary; }
+.box-target { @apply bg-amber-100 text-amber-600; }
+.box-wrong { @apply bg-rose-50 text-rose-500; }
 .box-empty { @apply bg-background text-border; }
 .box-ghost { pointer-events: none; }
 .shift-lane { @apply pointer-events-none absolute rounded-xl bg-primary/10; }
