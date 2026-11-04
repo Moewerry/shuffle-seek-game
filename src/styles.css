@@ -42,6 +42,7 @@
   .game-view { @apply grid h-full min-h-0 gap-2; grid-template-rows: auto minmax(0, 1fr); }
   .home-layout { @apply mx-auto grid w-full min-h-0 items-center justify-center gap-10; max-width: 800px; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); padding-inline: 24px; }
   .home-title { font-size: clamp(32px, calc(var(--game-width) * 0.052), 56px); line-height: 1.1; }
+  .home-tutorial { position: fixed; left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom)); }
   .home-art { @apply mx-auto flex aspect-square w-full flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; max-width: min(260px, calc(var(--game-height) * 0.58)); transform: rotate(-7deg); }
   .game-layout { @apply grid h-full min-h-0 min-w-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr); }
   .board-area { @apply flex h-full min-h-0 min-w-0 items-center justify-center; container-type: size; touch-action: manipulation; user-select: none; }
@@ -126,6 +127,10 @@
   }
 
   /* Safe-area edges rotate with the game surface. */
+  .home-tutorial {
+    left: max(12px, env(safe-area-inset-top));
+    bottom: max(12px, env(safe-area-inset-left));
+  }
   .app-shell {
     padding-top: max(8px, env(safe-area-inset-right));
     padding-right: max(12px, env(safe-area-inset-bottom));
