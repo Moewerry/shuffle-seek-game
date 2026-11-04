@@ -81,7 +81,7 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
         </Button>
       })}
       {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><span className="box-face"><HelpCircle /></span></div>}
-      {showPreviewMask && <BoardMask phase={phase} paused={paused} countdown={countdown} />}
     </div>
+    {showPreviewMask && <BoardMask phase={phase} paused={paused} countdown={countdown} />}
   </div>
 }

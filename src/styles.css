@@ -45,7 +45,7 @@
   .home-art { @apply mx-auto flex aspect-square w-full flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; max-width: min(260px, calc(var(--game-height) * 0.58)); transform: rotate(-7deg); }
   .game-layout { @apply grid h-full min-h-0 min-w-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr); }
   .board-area { @apply flex h-full min-h-0 min-w-0 items-center justify-center; container-type: size; touch-action: manipulation; user-select: none; }
-  .board-frame { @apply aspect-square rounded-3xl border border-border bg-card p-3 shadow-sm; width: min(100cqw, 100cqh); }
+  .board-frame { @apply relative isolate aspect-square overflow-hidden rounded-3xl bg-card p-3; width: min(100cqw, 100cqh); }
   .blind-board { @apply relative size-full overflow-hidden rounded-2xl; }
   .game-sidebar { @apply flex min-h-0 min-w-0 flex-col items-start gap-4; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 4px; }
   .game-sidebar > * { flex-shrink: 0; max-width: 100%; }
