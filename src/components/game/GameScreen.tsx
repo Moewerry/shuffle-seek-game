@@ -8,6 +8,7 @@ import { GameToolbar } from './GameToolbar'
 import { Board } from './Board'
 import { PauseDialog } from './PauseDialog'
 import { ResultDialog } from './ResultDialog'
+import { cn } from '../../lib/utils'
 
 type Props = { level: Level; total: number; sound: boolean; onHome: () => void; onComplete: (id: number) => void; onNext?: () => void }
 
@@ -26,10 +27,11 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
     if (game.phase === 'won') onComplete(level.id)
   }, [game.phase, level.id, onComplete])
   const finished = game.phase === 'won' || game.phase === 'lost'
+  const masked = !game.paused && (game.phase === 'ready' || game.phase === 'preview')
 
   return <div className="game-view">
-    <GameToolbar onSettings={game.pause} disabled={finished || game.paused}>
-      <h1 className="inline-flex items-center rounded-full border border-primary/10 bg-secondary/60 px-4 py-2 text-sm font-semibold tracking-widest text-primary">第{levelNumbers[level.id - 1] ?? level.id}关</h1>
+    <GameToolbar onSettings={game.pause} disabled={finished || game.paused} masked={masked}>
+      <h1 className={cn('inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold tracking-widest', masked ? 'border-transparent text-white/80' : 'border-primary/10 bg-secondary/60 text-primary')}>第{levelNumbers[level.id - 1] ?? level.id}关</h1>
     </GameToolbar>
     <main className="min-h-0">
     <section className="board-area relative z-20" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
