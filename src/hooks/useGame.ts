@@ -15,7 +15,11 @@ function reducer(state: Round, action: Action): Round {
   if (action.type === 'pause') return state.phase === 'won' || state.phase === 'lost' ? state : { ...state, paused: true }
   if (state.paused) return state
   if (action.type === 'pick') {
-    if (state.phase === 'prompt') return state.slots[action.slot] === TARGET ? { ...state, phase: 'shuffling' } : state
+    if (state.phase === 'prompt') return state.slots[action.slot] === TARGET
+      ? state.plan.length === 0
+        ? { ...state, selected: action.slot, phase: 'won' }
+        : { ...state, phase: 'shuffling' }
+      : state
     if (state.phase !== 'choosing' || !Number.isInteger(action.slot) || action.slot < 0 || action.slot >= state.slots.length) return state
     return { ...state, selected: action.slot, phase: state.slots[action.slot] === TARGET ? 'won' : 'lost' }
   }

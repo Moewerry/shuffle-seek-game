@@ -9,6 +9,7 @@ import { Button } from '../ui/button'
 import { Board } from './Board'
 import { PauseDialog } from './PauseDialog'
 import { GameToolbar } from './GameToolbar'
+import { TutorialInstructions } from './TutorialInstructions'
 
 type Props = { sound: boolean; onHome: () => void; onFinish: () => void }
 
@@ -25,13 +26,13 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
   const won = game.phase === 'won'
   const lost = game.phase === 'lost'
   const final = step === tutorialSteps.length - 1
-  const message = game.phase === 'preview' ? '看，星星藏在这里。先记住它的位置。'
-    : game.phase === 'covering' ? '现在把盒子盖好……'
-    : game.phase === 'prompt' ? '就是这个盒子，点击光圈试试看。'
-    : game.phase === 'shuffling' ? '盯住藏星星的盒子，等它停下来。'
-    : won ? final ? '全部完成！你已经学会追踪星星了。' : '找对了！星星一直在这个盒子里。'
-    : lost ? '差一点！看看星星的位置，再观察一次吧。'
-    : '现在，点开你认为藏着星星的盒子。'
+  const message = game.phase === 'preview' ? '记住星星的位置。'
+    : game.phase === 'covering' ? '盒子盖上了。'
+    : game.phase === 'prompt' ? tutorialSteps[step].description
+    : game.phase === 'shuffling' ? tutorialSteps[step].description
+    : won ? final ? '学会了！' : '找对了！'
+    : lost ? '星星在这里，再试一次。'
+    : step === 1 ? '点开刚才藏星星的盒子。' : '停下了，找出星星。'
 
   return <div className="game-view">
     <GameToolbar onSettings={game.pause} disabled={won || lost || game.paused} />
@@ -40,21 +41,13 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
       <Board level={level} slots={game.slots} shift={game.lastShift} phase={game.phase} paused={game.paused} selected={game.selected} onPick={slot => {
         if (game.paused || !['prompt', 'choosing'].includes(game.phase)) return
         game.pick(slot)
-        if (game.phase === 'choosing') playSound(game.slots[slot] === TARGET)
+        if (game.phase === 'choosing' || (game.phase === 'prompt' && game.slots[slot] === TARGET && game.plan.length === 0)) playSound(game.slots[slot] === TARGET)
       }} />
     </section>
     <aside className="game-sidebar">
-      <p className="text-xs font-bold tracking-widest text-violet-600">新手教学 · {step === 0 ? '入门演示' : `练习 ${step} / 4`}</p>
-      <div className="tutorial-message w-full rounded-3xl border border-white bg-gradient-to-br from-purple-50 to-violet-100 p-4 text-[#30284f] shadow-sm sm:p-5">
-        <h1 className="font-serif text-lg font-semibold">{level.title}</h1>
-        <p className="mt-2 text-sm leading-relaxed">{tutorialSteps[step].description}</p>
-        <p className="mt-3 min-h-10 text-sm font-semibold text-violet-700" role="status" aria-live="polite">{game.paused ? '教学已暂停' : message}</p>
-      </div>
-      <div className="flex gap-2" aria-label={`教学进度 ${step + 1} / 5`}>
-        {tutorialSteps.map((item, index) => <span key={item.title} className={`h-1.5 w-7 rounded-full ${index <= step ? 'bg-violet-500' : 'bg-violet-200'}`} />)}
-      </div>
+      <TutorialInstructions step={step} message={game.paused ? '教学已暂停' : message} />
       <div className="game-actions flex flex-wrap gap-2">
-        {won ? <Button disabled={game.paused} onClick={final ? onFinish : onNext}>{final ? '完成教学，返回首页' : step === 0 ? '开始练习' : '下一次练习'}<ArrowRight /></Button>
+        {won ? <Button disabled={game.paused} onClick={final ? onFinish : onNext}>{final ? '完成教学' : '下一步'}<ArrowRight /></Button>
           : lost && <Button variant="outline" onClick={game.reset}><RotateCcw />再试一次</Button>}
       </div>
       {(won || lost) && <Button variant="ghost" onClick={onHome}>返回首页</Button>}

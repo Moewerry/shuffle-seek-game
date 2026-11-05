@@ -2,11 +2,14 @@ import { shiftSlots, TARGET } from './shuffle'
 import type { Level, LineShift, Round } from './types'
 
 export const tutorialSteps = [
-  { title: '先认识藏星星的盒子', description: '盖好后，点击光圈里的盒子。然后看着它向下移动。', moves: [{ axis: 'column', direction: 1 }] },
-  { title: '第一次 · 记住就能找到', description: '这次盒子不移动。记住星星，盖好后把它找出来。', moves: [] },
-  { title: '第二次 · 跟着向右走', description: '藏星星的盒子会向右移动一格。盯住它的新位置。', moves: [{ axis: 'row', direction: 1 }] },
-  { title: '第三次 · 再试试向上', description: '这次向上移动一格。星星一直藏在同一个盒子里。', moves: [{ axis: 'column', direction: -1 }] },
-  { title: '第四次 · 连续跟两步', description: '先向左，再向下。等两次移动结束，再找出星星。', moves: [{ axis: 'row', direction: -1 }, { axis: 'column', direction: 1 }] },
+  { title: '点开盒子', description: '点击光圈里的盒子。', moves: [] },
+  { title: '记住位置', description: '盒子没有移动。', moves: [] },
+  { title: '向右一格', description: '跟着盒子向右看。', moves: [{ axis: 'row', direction: 1 }] },
+  { title: '向左一格', description: '跟着盒子向左看。', moves: [{ axis: 'row', direction: -1 }] },
+  { title: '向下一格', description: '跟着盒子向下看。', moves: [{ axis: 'column', direction: 1 }] },
+  { title: '向上一格', description: '跟着盒子向上看。', moves: [{ axis: 'column', direction: -1 }] },
+  { title: '到边缘会绕回来', description: '移出右边后，会从左边回来。', moves: [{ axis: 'row', direction: 1 }, { axis: 'row', direction: 1 }] },
+  { title: '连续跟两步', description: '先向左，再向下。', moves: [{ axis: 'row', direction: -1 }, { axis: 'column', direction: 1 }] },
 ] satisfies { title: string; description: string; moves: Pick<LineShift, 'axis' | 'direction'>[] }[]
 
 export function tutorialLevel(step: number): Level {
