@@ -969,8 +969,6 @@
   stroke-dashoffset: 0;
   animation: ll-draw var(--ll-dur-draw) var(--ll-ease-out) var(--ll-draw-delay) both;
 }
-[data-theme="forest"];
-[data-theme="zine"];
 @media (prefers-reduced-motion: reduce) {
   :root {
     --ll-motion: 0;
