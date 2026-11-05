@@ -19,9 +19,9 @@
   --ll-ink-you: #476d5a;
   --ll-focus: #476d5a;
   --ll-link-hover: #314e3e;
-  --ll-hi: #e9d795;
-  --ll-hi-deep: #927837;
-  --ll-sticky-yellow: #f4e8b7;
+  --ll-hi: #83d8cf;
+  --ll-hi-deep: #287d79;
+  --ll-sticky-yellow: #c5e9f3;
   --ll-check-rule: #a9bfb0;
   --ll-rule-blue: #b8cabe;
   --ll-shade: 37 58 46;
@@ -78,3 +78,4 @@
   .home-artwork { width: min(100%, calc(var(--game-height) * 0.65)); padding-top: 12px; }
   .home-art-caption { margin-top: 16px; font-size: 12px; }
 }
+
