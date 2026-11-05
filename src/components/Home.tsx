@@ -12,7 +12,8 @@ export function Home({ onStart, onTutorial, currentLevel }: { onStart: () => voi
       </div>
     </section>
     <HomeArtwork />
-    <div className="fixed bottom-[max(12px,env(safe-area-inset-bottom))] left-[max(12px,env(safe-area-inset-left))] z-10"><Button variant="ghost" size="icon" onClick={onTutorial} aria-label="新手教程" title="新手教程"><BookOpen aria-hidden="true" /></Button></div>
+    <div className="fixed bottom-[max(12px,env(safe-area-inset-bottom))] left-[max(12px,env(safe-area-inset-left))] z-10"><Button variant="ghost" size="icon" className="[&_[data-layer=rest]]:hidden" onClick={onTutorial} aria-label="新手教程" title="新手教程"><BookOpen aria-hidden="true" /></Button></div>
   </main>
 }
+
 

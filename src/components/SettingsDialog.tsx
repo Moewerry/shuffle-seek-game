@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogTitle } from './ui/dialog'
 export function SettingsDialog({ sound, onToggleSound }: { sound: boolean; onToggleSound: () => void }) {
   const [open, setOpen] = useState(false)
   return <>
-    <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="打开设置" title="设置"><Settings className="size-5" aria-hidden="true" /></Button>
+    <Button variant="ghost" size="icon" className="[&_[data-layer=rest]]:hidden" onClick={() => setOpen(true)} aria-label="打开设置" title="设置"><Settings className="size-5" aria-hidden="true" /></Button>
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="w-[min(calc(var(--game-width)*0.9),300px)]" aria-describedby={undefined}>
         <DialogTitle className="flex items-center gap-3 pr-10 text-2xl font-bold"><Settings className="size-7 shrink-0 text-primary" aria-hidden="true" />设置</DialogTitle>
@@ -18,4 +18,5 @@ export function SettingsDialog({ sound, onToggleSound }: { sound: boolean; onTog
     </Dialog>
   </>
 }
+
 
