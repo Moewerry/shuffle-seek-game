@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, RotateCcw } from 'lucide-react'
 import { createTutorialRound, tutorialLevel, tutorialSteps } from '../../game/tutorial'
 import { TARGET } from '../../game/shuffle'
@@ -26,6 +26,12 @@ function TutorialRound({ step, sound, onHome, onFinish, onNext }: Props & { step
   const won = game.phase === 'won'
   const lost = game.phase === 'lost'
   const final = step === tutorialSteps.length - 1
+  useEffect(() => {
+    if (!won || game.paused) return
+    const timer = window.setTimeout(final ? onFinish : onNext, 1200)
+    return () => window.clearTimeout(timer)
+  }, [won, game.paused, final, onFinish, onNext])
+
   const message = game.phase === 'preview' ? '记住星星的位置。'
     : game.phase === 'covering' ? '盒子盖上了。'
     : game.phase === 'prompt' ? tutorialSteps[step].description
