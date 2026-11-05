@@ -1,14 +1,38 @@
 /* Game layout details; surfaces and drawing come from Looseleaf. */
 :root, [data-ll-scope] {
-  --ll-desk: #eee8dc;
-  --primary: #a4502d;
-  --secondary: #f4e9b9;
+  --ll-desk: #ffffff;
+  --ll-desk-deep: #f4f6f4;
+  --ll-paper: #ffffff;
+  --ll-paper-shade: #f0f3f1;
+  --ll-slip: #ffffff;
+  --ll-card: #ffffff;
+  --ll-graph: #f8faf8;
+  --ll-check: #e9f0eb;
+  --ll-pad: #f7f9f7;
+  --ll-ink: #293c33;
+  --ll-ink-soft: #43574b;
+  --ll-ink-muted: #647269;
+  --ll-pencil: #7a857e;
+  --ll-pencil-text: #647269;
+  --ll-pencil-mark: #aebbb2;
+  --ll-marker: #a5c1ad;
+  --ll-ink-you: #476d5a;
+  --ll-focus: #476d5a;
+  --ll-link-hover: #314e3e;
+  --ll-hi: #e9d795;
+  --ll-hi-deep: #927837;
+  --ll-sticky-yellow: #f4e8b7;
+  --ll-check-rule: #a9bfb0;
+  --ll-rule-blue: #b8cabe;
+  --ll-shade: 37 58 46;
+  --primary: #476d5a;
+  --secondary: #edf3ee;
 }
 
 @layer base {
   body {
-    background-image: radial-gradient(rgb(82 66 42 / 0.1) 0.6px, transparent 0.6px);
-    background-size: 5px 5px;
+    background-color: #ffffff;
+    background-image: none;
   }
 }
 
@@ -26,27 +50,31 @@
   }
   .home-artwork {
     position: relative;
-    width: min(250px, calc(var(--game-height) * 0.52));
-    aspect-ratio: 1;
+    width: min(100%, 310px, calc(var(--game-height) * 0.62));
+    min-width: 0;
+    padding: 20px 16px 0;
     margin-inline: auto;
   }
-  .home-art-backing { position: absolute; inset: 6px -8px -6px 8px; }
-  .home-art-sheet { position: absolute; inset: 0; }
+  .home-art-stack { position: relative; width: 100%; aspect-ratio: 1; }
+  .home-art-stack > .home-art-backing { position: absolute; inset: 7px -6px -7px 6px; }
+  .home-art-stack > .home-art-sheet { position: absolute; inset: 0; }
   .home-art-caption {
-    position: absolute;
-    bottom: -36px;
-    left: -12px;
-    right: -16px;
+    display: block;
+    margin-top: 24px;
     text-align: center;
-    font-size: 20px;
+    font-size: clamp(12px, calc(var(--game-width) * 0.016), 18px);
     color: var(--ll-pencil-text);
-    transform: rotate(-5deg);
+    transform: rotate(-2deg);
   }
   .paper-dialog { isolation: isolate; }
 }
 
 @media (orientation: landscape) and (max-height: 420px), (orientation: portrait) and (max-width: 420px) {
+  .home-layout { padding-block: 10px; }
   .home-eyebrow { margin-bottom: 6px; font-size: 10px; }
   .home-description { margin-top: 10px; font-size: 12px; }
-  .home-art-caption { bottom: -28px; font-size: 16px; }
+  .home-actions { margin-top: 16px; gap: 8px; }
+  .home-layout .home-tutorial { height: 32px; font-size: 12px; }
+  .home-artwork { width: min(100%, calc(var(--game-height) * 0.65)); padding-top: 12px; }
+  .home-art-caption { margin-top: 16px; font-size: 12px; }
 }
