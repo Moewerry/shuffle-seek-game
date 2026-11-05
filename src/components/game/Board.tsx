@@ -7,7 +7,6 @@ import { Button } from '../ui/button'
 import { TutorialGesture } from './TutorialGesture'
 import { BoardMask } from './BoardMask'
 import { BoxFace } from './BoxFace'
-import { Paper } from '../ui/paper'
 
 type Props = {
   level: Level
@@ -63,7 +62,7 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
     ? shift.index * level.width + (shift.direction === 1 ? level.width - 1 : 0)
     : (shift?.direction === 1 ? level.height - 1 : 0) * level.width + (shift?.index ?? 0)
 
-  return <Paper stock="paper" rules="graph" edge="cut" shadow="none" tilt={false} seed="game-board" className="board-frame">
+  return <div className="board-frame">
     <div ref={boardRef} className="blind-board" role="group" aria-label={`第 ${level.id} 关，${level.width} 乘 ${level.height} 盲盒棋盘，整行或整列循环平移`}>
       {moving && shift && <div className="shift-lane" aria-hidden="true" style={shift.axis === 'row'
         ? { top: `${shift.index * 100 / level.height}%`, left: 0, width: '100%', height: `${100 / level.height}%` }
@@ -85,5 +84,5 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
       {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><BoxFace icon={HelpCircle} /></div>}
     </div>
     {showPreviewMask && <BoardMask light={level.id === 4} phase={phase} paused={paused} countdown={countdown} />}
-  </Paper>
+  </div>
 }
