@@ -10,7 +10,7 @@ export function BoardMask({ phase, paused, countdown }: { phase: Phase; paused: 
     {phase === 'preview' && <span className="sr-only">记住亮起的星星位置</span>}
     </div>
     {phase === 'preview' && countdown !== undefined && createPortal(<div className="pointer-events-none fixed bottom-6 right-6 z-30" role="status" aria-live="assertive" aria-atomic="true">
-      <span className="flex size-10 items-center justify-center rounded-sm border border-paper/50 bg-[#2a2420] font-type text-2xl font-bold tabular-nums text-paper shadow-lg" aria-label={`倒数 ${countdown}`}>{countdown}</span>
+      <span className="flex size-10 items-center justify-center font-type text-2xl font-bold tabular-nums text-white" aria-label={`倒数 ${countdown}`}>{countdown}</span>
     </div>, document.body)}
   </>
 }

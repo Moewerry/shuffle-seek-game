@@ -8,11 +8,9 @@ import { GameToolbar } from './GameToolbar'
 import { Board } from './Board'
 import { PauseDialog } from './PauseDialog'
 import { ResultDialog } from './ResultDialog'
-import { cn } from '../../lib/utils'
+import { LevelStamp } from './LevelStamp'
 
 type Props = { level: Level; total: number; sound: boolean; onHome: () => void; onComplete: (id: number) => void; onNext?: () => void }
-
-const levelNumbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
 
 export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: Props) {
   const game = useGame(level)
@@ -31,7 +29,7 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
 
   return <div className="game-view">
     <GameToolbar onSettings={game.pause} disabled={finished || game.paused} masked={masked}>
-      <h1 className={cn('inline-flex items-center rounded-sm border px-4 py-2 text-sm font-semibold tracking-widest', masked ? 'border-transparent text-white/80' : 'border-primary/50 bg-card text-primary')}>第{levelNumbers[level.id - 1] ?? level.id}关</h1>
+      <LevelStamp level={level.id} masked={masked} />
     </GameToolbar>
     <main className="min-h-0">
     <section className="board-area relative z-20" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
