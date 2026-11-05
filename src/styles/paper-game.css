@@ -1,0 +1,52 @@
+/* Game layout details; surfaces and drawing come from Looseleaf. */
+:root, [data-ll-scope] {
+  --ll-desk: #eee8dc;
+  --primary: #a4502d;
+  --secondary: #f4e9b9;
+}
+
+@layer base {
+  body {
+    background-image: radial-gradient(rgb(82 66 42 / 0.1) 0.6px, transparent 0.6px);
+    background-size: 5px 5px;
+  }
+}
+
+@layer components {
+  .home-title-mark { position: relative; isolation: isolate; }
+  .home-title-mark::before {
+    content: "";
+    position: absolute;
+    inset: 53% -4px 2%;
+    z-index: -1;
+    background: var(--ll-hi);
+    opacity: 0.7;
+    transform: rotate(-3deg);
+    border-radius: 3px 7px 4px 2px;
+  }
+  .home-artwork {
+    position: relative;
+    width: min(250px, calc(var(--game-height) * 0.52));
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+  .home-art-backing { position: absolute; inset: 6px -8px -6px 8px; }
+  .home-art-sheet { position: absolute; inset: 0; }
+  .home-art-caption {
+    position: absolute;
+    bottom: -36px;
+    left: -12px;
+    right: -16px;
+    text-align: center;
+    font-size: 20px;
+    color: var(--ll-pencil-text);
+    transform: rotate(-5deg);
+  }
+  .paper-dialog { isolation: isolate; }
+}
+
+@media (orientation: landscape) and (max-height: 420px), (orientation: portrait) and (max-width: 420px) {
+  .home-eyebrow { margin-bottom: 6px; font-size: 10px; }
+  .home-description { margin-top: 10px; font-size: 12px; }
+  .home-art-caption { bottom: -28px; font-size: 16px; }
+}

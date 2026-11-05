@@ -39,6 +39,10 @@
 
 React + TypeScript + Vite，Tailwind CSS 4，基于 Radix 的 shadcn/ui Button、Dialog，Lucide 图标。棋盘用可点击的 Button 组件与 Web Animations 位移动画实现，每个盒子的身份在平移过程中保持不变。边缘使用不可点击的视觉副本展示移出过程，真实盒子从另一侧进入，避免横穿棋盘造成误判。
 
+界面接入 [Looseleaf](https://github.com/kevintngo/looseleaf) 的 Button、Paper、Card、Tape 与手绘引擎源码，提供纸张纹理、撕边、胶带与手绘按钮。首页插画和棋盘盒面分别拆在 `HomeArtwork`、`BoxFace` 中。隐藏盒子与移动副本使用相同纸张种子，避免通过纸边或纹理区分目标。Dialog 保留现有 Radix 实现并使用 Looseleaf 纸张作为表面。
+
+Kevin Sans 字体位于 `src/styles/fonts/`，由本地样式加载；中文使用系统字体回退。Looseleaf 原始授权保留在 `licenses/looseleaf-LICENSE`。`components.json` 已登记 `@looseleaf` 注册表；后续添加组件时应先查看依赖与覆盖范围，避免整库主题覆盖游戏样式。本次没有新增 npm 依赖，也未运行项目、构建、编译或语法检查。
+
 ```text
 src/
   components/          首页、横屏提示

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./styles/looseleaf.css";
+@import "./styles/paper-game.css";
 
 @theme inline {
   --color-background: var(--background);
@@ -11,23 +13,23 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --color-ring: var(--primary);
+  --color-ring: var(--ll-focus);
 }
 
 :root {
-  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-hand);
   color-scheme: light;
   --game-width: 100dvw;
   --game-height: 100dvh;
-  --background: #f4f6f0;
-  --foreground: #263733;
-  --card: #ffffff;
-  --primary: #34664d;
-  --primary-foreground: #ffffff;
-  --secondary: #e0e9d8;
-  --muted: #e9ede4;
-  --muted-foreground: #6f7b72;
-  --border: #d9e0d4;
+  --background: #eee8dc;
+  --foreground: var(--ll-ink);
+  --card: var(--ll-paper);
+  --primary: #a4502d;
+  --primary-foreground: var(--ll-ink);
+  --secondary: #f4e9b9;
+  --muted: var(--ll-paper-shade);
+  --muted-foreground: var(--ll-pencil-text);
+  --border: var(--ll-pencil-mark);
 }
 
 @layer base {
@@ -43,24 +45,25 @@
   .home-layout { @apply mx-auto grid w-full min-h-0 items-center justify-center gap-10; max-width: 800px; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); padding-inline: 24px; }
   .home-title { font-size: clamp(32px, calc(var(--game-width) * 0.052), 56px); line-height: 1.1; }
   .home-tutorial { position: fixed; left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom)); }
-  .home-art { @apply mx-auto flex aspect-square w-full flex-col items-center justify-center rounded-[3rem] border border-border bg-secondary/60 text-primary; max-width: min(260px, calc(var(--game-height) * 0.58)); transform: rotate(-7deg); }
   .game-layout { @apply grid h-full min-h-0 min-w-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr); }
   .board-area { @apply flex h-full min-h-0 min-w-0 items-center justify-center; container-type: size; touch-action: manipulation; user-select: none; }
-  .board-frame { @apply relative isolate aspect-square overflow-hidden rounded-3xl bg-card p-3; width: min(100cqw, 100cqh); }
-  .blind-board { @apply relative size-full overflow-hidden rounded-2xl; }
+  .board-frame { @apply relative isolate aspect-square overflow-hidden p-3; width: min(100cqw, 100cqh); border: 1px solid rgb(142 136 127 / 0.35); }
+  .blind-board { @apply relative size-full overflow-hidden; }
   .game-sidebar { @apply flex min-h-0 min-w-0 flex-col items-start gap-4; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 4px; }
   .game-sidebar > * { flex-shrink: 0; max-width: 100%; }
 }
 
 /* Large click areas, smaller visible boxes, and clear lanes between them. */
-.blind-card { @apply absolute flex items-center justify-center border-0 bg-transparent p-0; transition: none; -webkit-tap-highlight-color: transparent; }
+.blind-card { @apply absolute flex items-center justify-center border-0 bg-transparent p-0; transition: none; translate: none; -webkit-tap-highlight-color: transparent; }
 .blind-card:hover { background: transparent; }
-.box-face { @apply flex items-center justify-center rounded-xl bg-muted text-muted-foreground; width: 66%; height: 66%; max-width: 80px; max-height: 80px; }
-.box-face svg { width: 40%; height: 40%; }
-.blind-card:not(:disabled):hover .box-face { @apply bg-secondary text-primary; }
-.box-target { @apply bg-amber-100 text-amber-600; }
-.box-wrong { @apply bg-rose-50 text-rose-500; }
-.box-empty { @apply bg-background text-border; }
+.blind-card > svg[data-ink] { display: none; }
+.blind-card:focus-visible { outline: 2px solid var(--ll-focus); outline-offset: -3px; }
+.box-face { @apply flex items-center justify-center text-muted-foreground; width: 66%; height: 66%; max-width: 80px; max-height: 80px; }
+.box-face > svg:not([data-ink]) { width: 40%; height: 40%; }
+.blind-card:not(:disabled):hover .box-face { color: var(--ll-ink-you); }
+.box-target { color: #906600; }
+.box-wrong { color: var(--ll-red); }
+.box-empty { color: var(--ll-pencil-mark); }
 .box-ghost { pointer-events: none; }
 .shift-lane { @apply pointer-events-none absolute rounded-xl bg-primary/10; }
 
@@ -76,8 +79,7 @@
 @media (orientation: landscape) and (max-height: 640px), (orientation: portrait) and (max-width: 640px) {
   .app-shell { gap: 6px; padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
   .game-layout { grid-template-columns: minmax(0, 1fr) minmax(220px, 0.7fr); gap: clamp(10px, 2vw, 20px); }
-  .board-frame { padding: 6px; border-radius: 20px; }
-  .box-face { border-radius: 10px; }
+  .board-frame { padding: 6px; }
   .game-sidebar { gap: 8px; }
   .game-info h1 { font-size: 20px; line-height: 1.3; margin-top: 3px; }
   .phase-indicator { padding: 10px 12px; border-radius: 12px; }
@@ -92,8 +94,6 @@
   .home-layout { max-width: 700px; gap: 32px; padding-inline: 16px; }
   .home-actions { margin-top: 22px; gap: 10px; }
   .home-layout button { height: 44px; padding: 0 16px; font-size: 14px; }
-  .home-art { border-radius: 32px; }
-  .home-art > span { margin-top: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

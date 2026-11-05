@@ -1,27 +1,112 @@
-import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../../lib/utils'
+"use client"
+
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import * as Slot from "@radix-ui/react-slot"
+
+import { IconSizeContext, useInk, useMergedRef } from "@/lib/ink/react"
+import { buttonRecipe } from "@/lib/ink/recipes/button-ink"
+import { cn } from "@/lib/utils"
+
+const swipe = "hover:[&>svg_[data-part=swipe]]:animate-[ll-wipe_var(--ll-dur-sheet)_var(--ll-ease-out)_both]"
 
 const buttonVariants = cva(
-  'inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 active:scale-[0.97] [&_svg]:size-4 [&_svg]:shrink-0',
-  { variants: {
-    variant: {
-      default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm',
-      outline: 'border border-border bg-card hover:bg-muted',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-      ghost: 'hover:bg-muted text-muted-foreground hover:text-foreground',
+  "relative isolate inline-flex shrink-0 items-center justify-center gap-2 font-hand font-bold whitespace-nowrap transition-[translate] duration-(--ll-dur-press) ease-out active:translate-y-(--ll-press-sink) [&[data-pressed]:not([data-pressed=false])]:translate-y-(--ll-press-sink) disabled:pointer-events-none disabled:text-pencil-text aria-disabled:pointer-events-none aria-disabled:text-pencil-text [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not(.absolute):not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: "text-primary-foreground",
+        destructive: "text-paper",
+        outline: "text-ink",
+        secondary: "text-secondary-foreground",
+        ghost: `text-foreground ${swipe}`,
+        link: `text-link hover:text-link-hover ${swipe}`,
+      },
+      size: {
+        default: "h-11 px-5 py-2 text-base",
+        xs: "h-6 gap-1 px-2 text-sm has-[>svg:not(.absolute)]:px-1.5 [&_svg:not(.absolute):not([class*='size-'])]:size-3",
+        sm: "h-10 gap-1.5 px-3 text-[15px]",
+        lg: "h-14 px-7 text-[17px]",
+        icon: "size-11",
+        "icon-xs": "size-6 [&_svg:not(.absolute):not([class*='size-'])]:size-3",
+        "icon-sm": "size-8 compact:size-7 calm:size-7",
+        "icon-lg": "size-10 compact:size-9 calm:size-8",
+      },
     },
-    size: { default: 'h-11 px-5', sm: 'h-10 px-3', lg: 'h-14 px-7 text-base', icon: 'size-11' },
-  }, defaultVariants: { variant: 'default', size: 'default' } },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
 )
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> { asChild?: boolean }
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  disabled,
+  seed,
+  children,
+  ref,
+  onClick,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+    seed?: string | number
+  }) {
+  const v = variant ?? "default"
+  const s = size ?? "default"
+  const pill = !!className && className.split(/\s+/).includes("rounded-full")
+  const forced = "data-focus-visible" in props || "data-pressed" in props
+  const { hostRef, hostProps, node } = useInk({
+    recipe: buttonRecipe,
+    params: { variant: v, size: s, disabled: !!disabled, shape: pill ? "pill" : "default" },
+    kind: "button",
+    seed,
+    layers: forced ? "all" : undefined,
+  })
+  const mergedRef = useMergedRef<HTMLElement>(hostRef, ref as React.Ref<HTMLElement> | undefined)
+  const iconPx = s === "xs" || s === "icon-xs" ? 12 : undefined
+  const shared = {
+    "data-variant": v,
+    "data-size": s,
+    "data-shape": pill ? "pill" : undefined,
+    "data-ink-sink": "self",
+    className: cn(buttonVariants({ variant: v, size: s, className })),
+    ref: mergedRef,
+    ...hostProps,
+    ...props,
+  }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button'
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-  },
-)
-Button.displayName = 'Button'
+  if (asChild) {
+    const inert = disabled
+      ? {
+          "aria-disabled": true as const,
+          "data-disabled": "",
+          tabIndex: -1,
+          onClick: (e: React.MouseEvent<HTMLElement>) => e.preventDefault(),
+        }
+      : { onClick: onClick as React.MouseEventHandler<HTMLElement> | undefined }
+    return (
+      <IconSizeContext value={iconPx}>
+        <Slot.Root data-slot="button" {...shared} {...inert}>
+          <Slot.Slottable>{children}</Slot.Slottable>
+          {node}
+        </Slot.Root>
+      </IconSizeContext>
+    )
+  }
+
+  return (
+    <IconSizeContext value={iconPx}>
+      <button data-slot="button" {...shared} disabled={disabled} onClick={onClick}>
+        {node}
+        {children}
+      </button>
+    </IconSizeContext>
+  )
+}
+
+export { Button, buttonVariants }

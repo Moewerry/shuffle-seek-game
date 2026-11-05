@@ -6,6 +6,8 @@ import { cn } from '../../lib/utils'
 import { Button } from '../ui/button'
 import { TutorialGesture } from './TutorialGesture'
 import { BoardMask } from './BoardMask'
+import { BoxFace } from './BoxFace'
+import { Paper } from '../ui/paper'
 
 type Props = {
   level: Level
@@ -32,7 +34,7 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
     const transform = (value: number) => horizontal ? `translateX(${value}px)` : `translateY(${value}px)`
     const options: KeyframeAnimationOptions = { duration: level.swapMs * 0.78, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both' }
     const animations: Animation[] = []
-    board.querySelectorAll<HTMLElement>('[data-slot]').forEach(element => {
+    board.querySelectorAll<HTMLElement>('.blind-card[data-slot]').forEach(element => {
       const slot = Number(element.dataset.slot)
       const line = horizontal ? Math.floor(slot / level.width) : slot % level.width
       if (line === shift.index) animations.push(element.animate([{ transform: transform(distance) }, { transform: transform(0) }], options))
@@ -61,7 +63,7 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
     ? shift.index * level.width + (shift.direction === 1 ? level.width - 1 : 0)
     : (shift?.direction === 1 ? level.height - 1 : 0) * level.width + (shift?.index ?? 0)
 
-  return <div className={cn('board-frame', showPreviewMask && !paused && (phase === 'ready' || phase === 'preview') && 'rounded-none bg-background')}>
+  return <Paper stock="paper" rules="graph" edge="cut" tilt={false} seed="game-board" className="board-frame">
     <div ref={boardRef} className="blind-board" role="group" aria-label={`第 ${level.id} 关，${level.width} 乘 ${level.height} 盲盒棋盘，整行或整列循环平移`}>
       {moving && shift && <div className="shift-lane" aria-hidden="true" style={shift.axis === 'row'
         ? { top: `${shift.index * 100 / level.height}%`, left: 0, width: '100%', height: `${100 / level.height}%` }
@@ -76,12 +78,12 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
           onClick={() => onPick(slot)}
           aria-label={`第 ${Math.floor(slot / level.width) + 1} 行，第 ${slot % level.width + 1} 列，${targetVisible ? '目标星星' : wrong ? '选中的空盒' : empty ? '空盒' : '未揭晓的盲盒'}`}
           className={cn('blind-card disabled:opacity-100', showPreviewMask && phase === 'preview' && targetVisible && 'z-20')} style={slotStyle(slot)}>
-          <span className={cn('box-face', targetVisible && 'box-target', wrong && 'box-wrong', empty && 'box-empty', guided && 'ring-4 ring-violet-300 ring-offset-4')}><Icon className={targetVisible ? 'fill-current' : undefined} aria-hidden="true" /></span>
+          <BoxFace icon={Icon} target={targetVisible} wrong={wrong} empty={empty} guided={guided} />
           {guided && <TutorialGesture />}
         </Button>
       })}
-      {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><span className="box-face"><HelpCircle /></span></div>}
+      {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><BoxFace icon={HelpCircle} /></div>}
     </div>
     {showPreviewMask && <BoardMask phase={phase} paused={paused} countdown={countdown} />}
-  </div>
+  </Paper>
 }
