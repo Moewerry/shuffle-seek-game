@@ -1,32 +1,32 @@
 /* Game layout details; surfaces and drawing come from Looseleaf. */
 :root, [data-ll-scope] {
   --ll-desk: #ffffff;
-  --ll-desk-deep: #f4f6f4;
+  --ll-desk-deep: #f1f6fc;
   --ll-paper: #ffffff;
-  --ll-paper-shade: #f0f3f1;
+  --ll-paper-shade: #eef3fa;
   --ll-slip: #ffffff;
   --ll-card: #ffffff;
-  --ll-graph: #f8faf8;
-  --ll-check: #e9f0eb;
-  --ll-pad: #f7f9f7;
-  --ll-ink: #293c33;
-  --ll-ink-soft: #43574b;
-  --ll-ink-muted: #647269;
-  --ll-pencil: #7a857e;
-  --ll-pencil-text: #647269;
-  --ll-pencil-mark: #aebbb2;
-  --ll-marker: #a5c1ad;
-  --ll-ink-you: #476d5a;
-  --ll-focus: #476d5a;
-  --ll-link-hover: #314e3e;
-  --ll-hi: #b4d6be;
-  --ll-hi-deep: #476d5a;
-  --ll-sticky-yellow: #d4e8d9;
-  --ll-check-rule: #a9bfb0;
-  --ll-rule-blue: #b8cabe;
-  --ll-shade: 37 58 46;
-  --primary: #476d5a;
-  --secondary: #edf3ee;
+  --ll-graph: #f6faff;
+  --ll-check: #e8f1fc;
+  --ll-pad: #f7faff;
+  --ll-ink: #263650;
+  --ll-ink-soft: #405571;
+  --ll-ink-muted: #62738d;
+  --ll-pencil: #8190a5;
+  --ll-pencil-text: #62738d;
+  --ll-pencil-mark: #b4c4d8;
+  --ll-marker: #ff9b83;
+  --ll-ink-you: #b74732;
+  --ll-focus: #b74732;
+  --ll-link-hover: #923624;
+  --ll-hi: #8ed5f2;
+  --ll-hi-deep: #277baf;
+  --ll-sticky-yellow: #b8e4f8;
+  --ll-check-rule: #a8c7e6;
+  --ll-rule-blue: #bdd5ed;
+  --ll-shade: 38 54 80;
+  --primary: #b74732;
+  --secondary: #fff0e9;
 }
 
 @layer base {
