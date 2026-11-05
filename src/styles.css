@@ -60,7 +60,7 @@
 .box-face { @apply flex items-center justify-center text-muted-foreground; width: 66%; height: 66%; max-width: 80px; max-height: 80px; }
 .box-face > svg:not([data-ink]) { width: 40%; height: 40%; }
 .blind-card:not(:disabled):hover .box-face { color: var(--ll-ink-you); }
-.box-target { color: #906600; }
+.box-target { color: #f5ba35; }
 .box-wrong { color: var(--ll-red); }
 .box-empty { color: var(--ll-pencil-mark); }
 .box-ghost { pointer-events: none; }
