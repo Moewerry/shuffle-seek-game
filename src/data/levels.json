@@ -1,12 +1,12 @@
 [
-  { "id": 1, "title": "记住这份惊喜", "hint": "先记住星星，再盯紧它藏身的盒子。", "width": 3, "height": 3, "swaps": 3, "swapMs": 850, "previewMs": 3000 },
-  { "id": 2, "title": "跟上小变化", "hint": "盒子会平移位置，星星一直藏在同一个盒子里。", "width": 3, "height": 3, "swaps": 4, "swapMs": 850, "previewMs": 3000 },
-  { "id": 3, "title": "多看一眼", "hint": "平移次数变多了，别让目光跟丢。", "width": 3, "height": 3, "swaps": 6, "swapMs": 850, "previewMs": 3000 },
-  { "id": 4, "title": "九宫格的秘密", "hint": "更多盒子，更需要专注。", "width": 3, "height": 3, "swaps": 5, "swapMs": 850, "previewMs": 3000 },
-  { "id": 5, "title": "左右之间", "hint": "看清每一次平移，记住目标停在哪里。", "width": 3, "height": 3, "swaps": 7, "swapMs": 850, "previewMs": 3000 },
-  { "id": 6, "title": "别眨眼", "hint": "保持专注，跟着目标盒子走。", "width": 3, "height": 3, "swaps": 9, "swapMs": 850, "previewMs": 3000 },
-  { "id": 7, "title": "藏在热闹之中", "hint": "不必记住所有盒子，只追踪藏星星的那个。", "width": 3, "height": 3, "swaps": 11, "swapMs": 850, "previewMs": 3000 },
-  { "id": 8, "title": "十六份可能", "hint": "棋盘变大了，先看准目标的起始位置。", "width": 4, "height": 4, "swaps": 10, "swapMs": 850, "previewMs": 3000 },
-  { "id": 9, "title": "专注的魔法", "hint": "看着盒子平移，最后相信自己的判断。", "width": 4, "height": 4, "swaps": 13, "swapMs": 850, "previewMs": 3000 },
-  { "id": 10, "title": "最后的惊喜", "hint": "跟紧每次变化，找出最后一颗星星。", "width": 4, "height": 4, "swaps": 16, "swapMs": 850, "previewMs": 3000 }
+  { "id": 1, "title": "迈出一小步", "hint": "只有四个盒子，跟着星星向右移动一格。", "width": 2, "height": 2, "swaps": 1, "swapMs": 1300, "previewMs": 4000, "pattern": "rows", "forwardOnly": true },
+  { "id": 2, "title": "左右小旅行", "hint": "只会横向移动；到达边缘，会从另一边回来。", "width": 3, "height": 2, "swaps": 4, "swapMs": 1200, "previewMs": 4000, "pattern": "rows" },
+  { "id": 3, "title": "上下找一找", "hint": "这次只移动整列，沿着上下方向追踪星星。", "width": 3, "height": 3, "swaps": 4, "swapMs": 1150, "previewMs": 4000, "pattern": "columns" },
+  { "id": 4, "title": "拐个弯再走", "hint": "横向、纵向轮流移动，每一步都要换个方向看。", "width": 3, "height": 3, "swaps": 5, "swapMs": 1050, "previewMs": 4000, "pattern": "alternating" },
+  { "id": 5, "title": "边缘传送门", "hint": "星星从边缘出发，第一步就会绕到另一边。", "width": 3, "height": 3, "swaps": 6, "swapMs": 1000, "previewMs": 3000, "pattern": "alternating", "wrapFirst": true },
+  { "id": 6, "title": "别被空盒骗了", "hint": "有两步只移动空盒，星星没动时就盯住原位。", "width": 3, "height": 3, "swaps": 7, "swapMs": 950, "previewMs": 3000, "pattern": "mixed", "decoyMoves": 2 },
+  { "id": 7, "title": "多一列风景", "hint": "棋盘多了一列，先适应距离，再跟着横纵交替走。", "width": 4, "height": 3, "swaps": 7, "swapMs": 950, "previewMs": 3000, "pattern": "alternating" },
+  { "id": 8, "title": "打破小节奏", "hint": "横纵不再轮流，夹着三次空盒移动，别靠节奏猜。", "width": 4, "height": 3, "swaps": 9, "swapMs": 850, "previewMs": 3000, "pattern": "mixed", "decoyMoves": 3 },
+  { "id": 9, "title": "十六格寻星", "hint": "十六个盒子，只有两秒记忆时间；专心追踪一颗星。", "width": 4, "height": 4, "swaps": 10, "swapMs": 850, "previewMs": 2000, "pattern": "alternating", "decoyMoves": 2 },
+  { "id": 10, "title": "寻星大挑战", "hint": "更快的移动、四次空盒干扰，把学过的本领都用上。", "width": 4, "height": 4, "swaps": 12, "swapMs": 750, "previewMs": 2000, "pattern": "mixed", "decoyMoves": 4 }
 ]

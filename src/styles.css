@@ -46,7 +46,7 @@
   .home-title { font-size: clamp(30px, min(calc(var(--game-width) * 0.045), calc(var(--game-height) * 0.085)), 56px); line-height: 1.15; white-space: nowrap; }
   .game-layout { @apply grid h-full min-h-0 min-w-0 items-center gap-8; grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr); }
   .board-area { @apply flex h-full min-h-0 min-w-0 items-center justify-center; container-type: size; touch-action: manipulation; user-select: none; }
-  .board-frame { @apply relative isolate aspect-square p-3; width: min(100cqw, 100cqh); }
+  .board-frame { @apply relative isolate; }
   .blind-board { @apply relative size-full overflow-hidden; }
   .game-sidebar { @apply flex min-h-0 min-w-0 flex-col items-start gap-4; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 4px; }
   .game-sidebar > * { flex-shrink: 0; max-width: 100%; }
@@ -78,7 +78,6 @@
 @media (orientation: landscape) and (max-height: 640px), (orientation: portrait) and (max-width: 640px) {
   .app-shell { gap: 6px; padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
   .game-layout { grid-template-columns: minmax(0, 1fr) minmax(220px, 0.7fr); gap: clamp(10px, 2vw, 20px); }
-  .board-frame { padding: 6px; }
   .game-sidebar { gap: 8px; }
   .game-info h1 { font-size: 20px; line-height: 1.3; margin-top: 3px; }
   .phase-indicator { padding: 10px 12px; border-radius: 12px; }

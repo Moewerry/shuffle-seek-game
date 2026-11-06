@@ -23,7 +23,7 @@ function reducer(state: Round, action: Action): Round {
     if (state.phase !== 'choosing' || !Number.isInteger(action.slot) || action.slot < 0 || action.slot >= state.slots.length) return state
     return { ...state, selected: action.slot, phase: state.slots[action.slot] === TARGET ? 'won' : 'lost' }
   }
-  if (state.phase === 'ready') return { ...state, phase: 'preview', countdown: 3 }
+  if (state.phase === 'ready') return { ...state, phase: 'preview', countdown: Math.ceil(action.level.previewMs / 1000) }
   if (state.phase === 'preview') {
     if (state.countdown !== undefined && state.countdown > 1) return { ...state, countdown: state.countdown - 1 }
     return { ...state, phase: 'covering', countdown: undefined }

@@ -1,3 +1,5 @@
+export type MovementPattern = 'rows' | 'columns' | 'alternating' | 'mixed'
+
 export type Level = {
   id: number
   title: string
@@ -7,6 +9,10 @@ export type Level = {
   swaps: number
   swapMs: number
   previewMs: number
+  pattern?: MovementPattern
+  forwardOnly?: boolean
+  decoyMoves?: number
+  wrapFirst?: boolean
 }
 
 export type Phase = 'ready' | 'preview' | 'covering' | 'prompt' | 'shuffling' | 'choosing' | 'won' | 'lost'
