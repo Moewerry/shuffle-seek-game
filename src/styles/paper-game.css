@@ -64,7 +64,7 @@
     --ll-shadow-loose: 0 1px 3px rgb(var(--ll-shade) / 0.055), 0 5px 12px -3px rgb(var(--ll-shade) / 0.07);
   }
   .home-art-sheet::before { --ll-sheet-radius: 0; }
-  .home-art-tile {
+  .graph-paper {
     --ll-shadow-k: 0.18;
     --ll-shadow-slip: 0 1px 1px rgb(var(--ll-shade) / 0.036), 0 4px 8px -3px rgb(var(--ll-shade) / 0.036);
   }
@@ -77,8 +77,8 @@
     stroke: none;
   }
   /* Print the grid on the clipped paper face, without an inset rectangle. */
-  .home-art-tile > [data-slot="paper-face"]::after,
-  .home-art-tile[data-edge="cut"]::after {
+  .graph-paper > [data-slot="paper-face"]::after,
+  .graph-paper[data-edge="cut"]::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -89,12 +89,12 @@
     background-size: 16px 16px;
     background-position: 7px 5px;
   }
-  .home-art-tile[data-edge="cut"]::after {
+  .graph-paper[data-edge="cut"]::after {
     z-index: var(--ll-z-sheet);
     border-radius: var(--ll-sheet-radius);
     rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
   }
-  .home-art-tile > svg[data-ink="sheet"] [fill="none"] {
+  .graph-paper > svg[data-ink="sheet"] [fill="none"] {
     stroke: none;
   }
   .home-art-caption {

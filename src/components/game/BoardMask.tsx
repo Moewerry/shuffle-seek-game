@@ -1,10 +1,10 @@
 import type { Phase } from '../../game/types'
 import { createPortal } from 'react-dom'
 
-export function BoardMask({ phase, paused, countdown, light = false }: { light?: boolean; phase: Phase; paused: boolean; countdown?: number }) {
+export function BoardMask({ phase, paused, countdown }: { phase: Phase; paused: boolean; countdown?: number }) {
   if (paused || (phase !== 'ready' && phase !== 'preview')) return null
   return <>
-    {createPortal(<div className={`fixed inset-0 z-10 ${light ? 'bg-[#64748b]/35' : 'bg-[#2a2420]/80'}`} aria-hidden="true" />, document.body)}
+    {createPortal(<div className="fixed inset-0 z-10 bg-black/60" aria-hidden="true" />, document.body)}
     <div className="absolute inset-0 z-10 flex items-center justify-center rounded-[inherit]" role="status" aria-live="polite">
     {phase === 'ready' && <p className="text-xl font-bold tracking-widest text-white">准备开始</p>}
     {phase === 'preview' && <span className="sr-only">记住亮起的星星位置</span>}

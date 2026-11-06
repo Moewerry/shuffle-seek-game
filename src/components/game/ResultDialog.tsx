@@ -9,7 +9,7 @@ type Props = { open: boolean; won: boolean; level: Level; targetSlot: number; on
 export function ResultDialog({ open, won, level, targetSlot, onReplay, onHome, onNext, lastLevel }: Props) {
   if (won) return <SuccessOverlay open={open} lastLevel={lastLevel} onNext={onNext} onHome={onHome} />
   return <Dialog open={open} onOpenChange={value => { if (!value) onHome() }}>
-    <DialogContent aria-describedby="result-description">
+    <DialogContent className="max-h-[calc(var(--game-height)-24px)] gap-3 overflow-visible p-[clamp(12px,calc(var(--game-height)*0.04),24px)]" aria-describedby="result-description">
       <DialogTitle className="flex items-center gap-3 pr-10 text-2xl font-bold"><Search className="size-7 shrink-0 text-primary" aria-hidden="true" />未找到</DialogTitle>
       <DialogDescription id="result-description" className="text-sm text-muted-foreground">
         星星在第 {Math.floor(targetSlot / level.width) + 1} 行、第 {targetSlot % level.width + 1} 列。

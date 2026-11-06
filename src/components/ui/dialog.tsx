@@ -13,7 +13,7 @@ export const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { fullScreen?: boolean; showClose?: boolean }
 >(({ className, children, fullScreen = false, showClose = true, ...props }, ref) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-foreground/35" />
+    <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-black/50" />
     <DialogPrimitive.Content ref={ref} className={cn('fixed z-50 grid gap-4 overflow-y-auto p-6 focus:outline-none', fullScreen
       ? 'inset-0 h-[var(--game-height)] w-[var(--game-width)] place-content-center bg-background/90'
       : 'paper-dialog left-1/2 top-1/2 max-h-[calc(var(--game-height)*0.85)] w-[min(calc(var(--game-width)*0.9),420px)] -translate-x-1/2 -translate-y-1/2', className)} {...props}>

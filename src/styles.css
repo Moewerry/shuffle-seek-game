@@ -62,7 +62,6 @@
 .blind-card:not(:disabled):hover .box-face { color: var(--ll-ink-you); }
 .box-target { color: #f5ba35; }
 .box-wrong { color: var(--ll-red); }
-.box-empty { color: var(--ll-pencil-mark); }
 .box-ghost { pointer-events: none; }
 .shift-lane { @apply pointer-events-none absolute rounded-xl bg-primary/10; }
 

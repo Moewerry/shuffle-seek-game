@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
-import { Circle, HelpCircle, Star, X } from 'lucide-react'
+import { HelpCircle, Star, X } from 'lucide-react'
 import { TARGET } from '../../game/shuffle'
 import type { Level, LineShift, Phase } from '../../game/types'
 import { cn } from '../../lib/utils'
@@ -71,18 +71,18 @@ export function Board({ level, slots, shift, phase, paused, selected, onPick, sh
         const targetVisible = !paused && id === TARGET && (phase === 'preview' || revealed)
         const wrong = revealed && slot === selected && id !== TARGET
         const empty = revealed && id !== TARGET && !wrong
-        const Icon = targetVisible ? Star : wrong ? X : empty ? Circle : HelpCircle
+        const Icon = targetVisible ? Star : wrong ? X : empty ? null : HelpCircle
         const guided = phase === 'prompt' && id === TARGET && !paused
         return <Button key={id} variant="ghost" disabled={!canPick || (phase === 'prompt' && id !== TARGET)} data-slot={slot}
           onClick={() => onPick(slot)}
           aria-label={`第 ${Math.floor(slot / level.width) + 1} 行，第 ${slot % level.width + 1} 列，${targetVisible ? '目标星星' : wrong ? '选中的空盒' : empty ? '空盒' : '未揭晓的盲盒'}`}
           className={cn('blind-card disabled:opacity-100', showPreviewMask && phase === 'preview' && targetVisible && 'z-20')} style={slotStyle(slot)}>
-          <BoxFace icon={Icon} target={targetVisible} wrong={wrong} empty={empty} guided={guided} />
+          <BoxFace icon={Icon} target={targetVisible} wrong={wrong} guided={guided} />
           {guided && <TutorialGesture />}
         </Button>
       })}
       {moving && <div data-ghost className="blind-card box-ghost" aria-hidden="true" style={slotStyle(outgoing)}><BoxFace icon={HelpCircle} /></div>}
     </div>
-    {showPreviewMask && <BoardMask light={level.id === 4} phase={phase} paused={paused} countdown={countdown} />}
+    {showPreviewMask && <BoardMask phase={phase} paused={paused} countdown={countdown} />}
   </div>
 }

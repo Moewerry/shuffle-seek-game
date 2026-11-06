@@ -26,11 +26,10 @@ export function GameScreen({ level, total, sound, onHome, onComplete, onNext }: 
   }, [game.phase, level.id, onComplete])
   const finished = game.phase === 'won' || game.phase === 'lost'
   const masked = !game.paused && (game.phase === 'ready' || game.phase === 'preview')
-  const darkened = masked && level.id !== 4
 
   return <div className="game-view">
-    <GameToolbar onSettings={game.pause} disabled={finished || game.paused} masked={darkened}>
-      <LevelBrief level={level} masked={darkened} />
+    <GameToolbar onSettings={game.pause} disabled={finished || game.paused} masked={masked}>
+      <LevelBrief level={level} masked={masked} />
     </GameToolbar>
     <main className="min-h-0">
     <section className="board-area relative z-20" aria-label="记住星星，观察整行或整列平移，最后点开盲盒">
