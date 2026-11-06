@@ -59,9 +59,10 @@
   .home-art-stack > .home-art-sheet {
     position: absolute;
     inset: 0;
-    --ll-paper: #f5eddd;
+    --ll-paper: #fff1f5;
     --ll-paper-light: linear-gradient(135deg, rgb(255 255 255 / 0.18), transparent 60%);
   }
+  .home-art-sheet::before { border-radius: 0; }
   /* Print the grid on the clipped paper face, without an inset rectangle. */
   .home-art-tile > [data-slot="paper-face"]::after,
   .home-art-tile[data-edge="cut"]::after {
@@ -80,7 +81,6 @@
     border-radius: var(--ll-sheet-radius);
     rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
   }
-  .home-art-sheet > svg[data-ink="sheet"] [fill="none"],
   .home-art-tile > svg[data-ink="sheet"] [fill="none"] {
     stroke: none;
   }
