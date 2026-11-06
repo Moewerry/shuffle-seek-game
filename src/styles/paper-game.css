@@ -61,12 +61,12 @@
     inset: 0;
     --ll-paper: #ffffff;
     --ll-paper-light: linear-gradient(135deg, rgb(255 255 255 / 0.18), transparent 60%);
-    --ll-shadow-loose: 0 1px 3px rgb(var(--ll-shade) / 0.055), 0 5px 12px -3px rgb(var(--ll-shade) / 0.07);
+    --ll-shadow-loose: 0 2px 5px rgb(var(--ll-shade) / 0.055), 0 7px 22px -2px rgb(var(--ll-shade) / 0.07);
   }
   .home-art-sheet::before { --ll-sheet-radius: 0; }
   .graph-paper {
-    --ll-shadow-k: 0.18;
-    --ll-shadow-slip: 0 1px 1px rgb(var(--ll-shade) / 0.036), 0 4px 8px -3px rgb(var(--ll-shade) / 0.036);
+    --ll-shadow-k: 0.3;
+    --ll-shadow-loose: 0 1px 2px rgb(var(--ll-shade) / 0.036), 0 6px 16px -2px rgb(var(--ll-shade) / 0.036);
   }
   .home-art-sheet > [data-slot="tape"] {
     --ll-bubblegum: #9edbc7;
