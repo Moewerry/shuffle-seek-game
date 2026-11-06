@@ -58,6 +58,27 @@
   .home-art-stack { position: relative; width: 100%; aspect-ratio: 1; }
   .home-art-stack > .home-art-backing { position: absolute; inset: 7px -6px -7px 6px; }
   .home-art-stack > .home-art-sheet { position: absolute; inset: 0; }
+  /* Print the grid on the clipped paper face, without an inset rectangle. */
+  .home-art-tile > [data-slot="paper-face"]::after,
+  .home-art-tile[data-edge="cut"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgb(168 199 230 / 0.5) 0.7px, transparent 0.7px),
+      linear-gradient(to bottom, rgb(168 199 230 / 0.5) 0.7px, transparent 0.7px);
+    background-size: 16px 16px;
+    background-position: 7px 5px;
+  }
+  .home-art-tile[data-edge="cut"]::after {
+    z-index: var(--ll-z-sheet);
+    border-radius: var(--ll-sheet-radius);
+    rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+  }
+  .home-art-tile > svg[data-ink="sheet"] [fill="none"] {
+    stroke: none;
+  }
   .home-art-caption {
     display: block;
     margin-top: 24px;
