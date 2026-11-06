@@ -4,9 +4,9 @@ import { Paper } from '../ui/paper'
 export function HomeArtwork() {
   return <div className="home-artwork" aria-hidden="true">
     <div className="home-art-stack">
-      <Paper stock="card" rules="none" edge="cut" shadow="none" tape="top" tapeKind="washi-dots" tilt={2} className="home-art-sheet" seed="home-grid">
+      <Paper stock="card" rules="none" edge="cut" shadow="loose" tape="top" tapeKind="washi-dots" tilt={-2} className="home-art-sheet" seed="home-grid">
         <div className="grid size-full grid-cols-2 gap-[8%] p-[10%]">
-          {[false, true, false, false].map((target, index) => <Paper key={index} stock="graph" rules="none" edge="deckle" shadow="none" tilt={index % 2 ? -4 : 3} className="home-art-tile grid aspect-square place-items-center" seed={`home-box-${index}`}>
+          {[false, true, false, false].map((target, index) => <Paper key={index} stock="graph" rules="none" edge="deckle" shadow="slip" tilt={index % 2 ? -4 : 3} className="home-art-tile grid aspect-square place-items-center" seed={`home-box-${index}`}>
             {target ? <Star className="size-8 fill-[#f8dc4c] text-ink" strokeWidth={1.6} /> : <HelpCircle className="size-7 text-pencil" strokeWidth={1.4} />}
           </Paper>)}
         </div>
