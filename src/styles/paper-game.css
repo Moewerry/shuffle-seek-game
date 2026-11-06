@@ -59,10 +59,18 @@
   .home-art-stack > .home-art-sheet {
     position: absolute;
     inset: 0;
-    --ll-paper: #fff1f5;
+    --ll-paper: #edf6fc;
     --ll-paper-light: linear-gradient(135deg, rgb(255 255 255 / 0.18), transparent 60%);
   }
   .home-art-sheet::before { border-radius: 0; }
+  .home-art-sheet > [data-slot="tape"] {
+    --ll-bubblegum: #9edbc7;
+    --ll-ink: #73b6a1;
+  }
+  /* Keep the mint print clean by omitting the tape's crease and edge strokes. */
+  .home-art-sheet > [data-slot="tape"] path[fill="none"] {
+    stroke: none;
+  }
   /* Print the grid on the clipped paper face, without an inset rectangle. */
   .home-art-tile > [data-slot="paper-face"]::after,
   .home-art-tile[data-edge="cut"]::after {
